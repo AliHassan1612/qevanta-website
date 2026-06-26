@@ -84,3 +84,95 @@
 section{
     scroll-margin-top:120px;
 }
+/* ---------- PHASE 1 WEBSITE POLISH ---------- */
+
+.final-cta{
+  text-align:center;
+  padding:60px 40px;
+}
+
+#contact .card{
+  min-height:260px;
+}
+
+#contact p{
+  line-height:1.8;
+}
+
+.nav{
+  transition:.3s ease;
+}
+
+.nav:hover{
+  border-color:rgba(124,60,255,.45);
+}
+
+.btn{
+  transition:.25s ease;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 15px 35px rgba(124,60,255,.35);
+}
+
+.card{
+  transition:.25s ease;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(124,60,255,.4);
+}
+
+.metric{
+  transition:.25s ease;
+}
+
+.metric:hover{
+  transform:translateY(-4px);
+}
+
+.footer a{
+  color:#b8c6d8;
+}
+
+.footer a:hover{
+  color:white;
+}
+
+.price.popular{
+  transform:scale(1.04);
+}
+
+.price.popular:hover{
+  transform:scale(1.06);
+}
+
+.hero{
+  padding-top:110px;
+  padding-bottom:70px;
+}
+
+.hero h1{
+  max-width:980px;
+}
+
+.hero .lead{
+  max-width:760px;
+}
+
+section{
+  scroll-margin-top:120px;
+}
+
+@media(max-width:900px){
+  .price.popular,
+  .price.popular:hover{
+    transform:none;
+  }
+
+  .final-cta{
+    padding:38px 22px;
+  }
+}
