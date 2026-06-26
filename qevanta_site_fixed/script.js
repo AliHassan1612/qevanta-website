@@ -1,0 +1,1 @@
+function startPlan(plan){alert("Plan selected: "+String(plan).toUpperCase()+"\n\nStripe checkout will be connected later.")}
