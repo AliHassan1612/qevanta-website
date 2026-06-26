@@ -5,254 +5,67 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Qevanta — Audience Intelligence & Lead Discovery</title>
 <meta name="description" content="Qevanta helps agencies, freelancers, marketers, and growth teams turn public audiences into qualified lead lists.">
-<link rel="stylesheet" href="style.css">
+<style>
+:root{--bg:#030714;--panel:#0b1122;--card:#111827;--soft:#151e33;--text:#f8fbff;--muted:#a7b4c9;--line:rgba(255,255,255,.11);--purple:#7c3cff;--blue:#14bff0;--gold:#ffd34d;--green:#65f0a4}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at 30% 7%,rgba(124,60,255,.34),transparent 31%),radial-gradient(circle at 82% 15%,rgba(20,191,240,.18),transparent 28%),linear-gradient(180deg,#030714,#050b18 58%,#020611);color:var(--text)}a{text-decoration:none;color:inherit}button{font:inherit}.wrap{width:min(1180px,92%);margin:auto}.nav{width:min(1180px,92%);margin:18px auto;position:sticky;top:14px;z-index:99;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 22px;border:1px solid var(--line);border-radius:24px;background:rgba(5,9,22,.86);backdrop-filter:blur(18px);box-shadow:0 18px 70px rgba(0,0,0,.36)}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-size:26px;font-weight:900;box-shadow:0 0 36px rgba(124,60,255,.45)}.brand strong{display:block;font-size:18px}.brand small{display:block;color:var(--muted);font-size:14px}.navlinks{display:flex;gap:22px;align-items:center}.navlinks a{color:#e8eefb;font-size:14px}.navlinks a:hover{color:#9bdcff}.cta,.btn{border:0;border-radius:16px;padding:14px 24px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}.cta,.btn.primary{color:white;background:linear-gradient(135deg,var(--purple),var(--blue));box-shadow:0 18px 50px rgba(124,60,255,.32)}.btn.secondary{color:white;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+.hero{min-height:680px;display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:54px;align-items:center;padding:72px 0 58px}.badge{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:10px 16px;color:#dce8ff;background:rgba(255,255,255,.04);margin-bottom:28px;font-size:14px}.hero h1{font-size:clamp(50px,6vw,82px);line-height:1.02;letter-spacing:-4px;margin:0 0 22px}.hero h1 span{background:linear-gradient(90deg,#9b5cff,#2db7ff);-webkit-background-clip:text;color:transparent}.hero p{color:#c2ccdc;max-width:600px;line-height:1.7;font-size:17px}.hero-actions{display:flex;gap:16px;margin:30px 0;flex-wrap:wrap}.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:580px}.hero-stats div{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px}.hero-stats b{display:block;font-size:17px}.hero-stats span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.mockup{border:1px solid rgba(94,203,255,.65);border-radius:22px;background:#091021;box-shadow:0 0 90px rgba(124,60,255,.32),inset 0 0 0 1px rgba(255,255,255,.04);overflow:hidden}.mockup-top{height:54px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:0 18px;border-bottom:1px solid var(--line)}.mini-logo{width:25px;height:25px;border-radius:7px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-weight:900;font-size:14px}.mockup-top span{color:#dbe7ff;font-size:13px}.mockup-body{display:grid;grid-template-columns:130px 1fr 160px;gap:14px;padding:18px}.mockup aside{display:flex;flex-direction:column;gap:8px}.mockup aside span{color:#9daac0;font-size:12px;padding:8px 10px;border-radius:9px}.mockup aside .active{background:rgba(255,255,255,.07);color:white}.mockup-form label{display:block;color:#cbd5e1;font-size:12px;margin:0 0 6px}.fake-input,.chips{background:#121a2d;border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:12px;color:#7d8aa0;margin-bottom:10px;font-size:12px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chips i{font-style:normal;background:#1b2540;border:1px solid rgba(255,255,255,.08);padding:4px 8px;border-radius:7px;font-size:11px;color:#dbe7ff}.mockup-form button{background:linear-gradient(135deg,var(--purple),var(--blue));border:0;color:white;border-radius:9px;padding:11px 14px;font-weight:900}.mockup-side{display:grid;gap:10px}.mockup-side div{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:12px}.mockup-side span{display:block;color:#98a6ba;font-size:11px}.mockup-side b{display:block;margin-top:4px;font-size:13px}.mockup-side em{display:block;height:5px;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--blue));margin-top:8px}
+.trusted{text-align:center;padding:28px 0 18px}.trusted p{color:#91a2ba;font-size:12px;letter-spacing:4px;font-weight:900}.trusted div{display:flex;justify-content:center;gap:34px;flex-wrap:wrap;color:#cbd6e6;font-size:13px}.section{padding:80px 0}.section h2{text-align:center;font-size:clamp(36px,5vw,54px);letter-spacing:-2px;margin:0 0 10px}.sub{text-align:center;color:var(--muted);margin:0 auto 36px;max-width:720px;line-height:1.7}.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card,.value-card,.testimonial,.steps div,.price-card,details{background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.09);border-radius:18px;box-shadow:0 28px 80px rgba(0,0,0,.22)}.card{padding:28px;text-align:center}.icon{width:48px;height:48px;margin:0 auto 16px;border-radius:14px;display:grid;place-items:center;background:rgba(124,60,255,.25);font-size:22px}.card h3,.value-card h3{margin:0 0 10px;font-size:22px}.card p,.value-card p,.steps p,.testimonial p,details p{color:#aebacd;line-height:1.7;margin:0}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.steps div{padding:26px}.steps b{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));margin-bottom:16px}.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.value-card{padding:30px}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.price-card{position:relative;min-height:430px;display:flex;flex-direction:column;padding:28px 22px;overflow:hidden}.price-card h3{text-align:center;margin:0 0 16px;font-size:20px}.price{text-align:center;font-size:42px;font-weight:900;margin-bottom:24px}.price span{font-size:12px;color:#c7d2e5;font-weight:500;margin-left:4px}.price-card ul{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:11px}.price-card li{color:#d3deef;font-size:13px}.price-card li:before{content:"✓ ";color:#9b6cff}.price-card button{margin-top:auto;color:white;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);border-radius:12px;padding:13px;font-weight:900;cursor:pointer}.price-card.popular{border-color:rgba(124,60,255,.9);box-shadow:0 0 40px rgba(124,60,255,.2)}.price-card.agency{border-color:rgba(255,211,77,.5)}.price-card.popular button,.price-card.agency button{background:linear-gradient(135deg,var(--purple),var(--blue));border:0}.ribbon{position:absolute;right:-43px;top:25px;transform:rotate(42deg);background:linear-gradient(135deg,#7c3cff,#2db7ff);color:white;padding:7px 48px;font-size:11px;font-weight:900}.ribbon.gold{background:linear-gradient(135deg,#ffd34d,#ffb000);color:#111}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.testimonial{padding:24px}.testimonial b{display:block;font-size:17px}.testimonial span{display:block;color:#91a2ba;font-size:13px;margin:5px 0 16px}.testimonial em{color:#ffc83d;font-style:normal}.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}details{padding:24px}summary{font-weight:900;cursor:pointer;margin-bottom:10px}.cta-section{margin-bottom:70px;padding:34px 42px;display:flex;align-items:center;justify-content:space-between;gap:20px;border:1px solid rgba(21,191,240,.45);border-radius:18px;background:linear-gradient(135deg,rgba(124,60,255,.35),rgba(21,191,240,.16))}.cta-section h2{margin:0 0 8px;font-size:32px}.cta-section p{margin:0;color:#c7d2e5}.cta-section a{background:linear-gradient(135deg,var(--purple),var(--blue));padding:14px 24px;border-radius:12px;font-weight:900}.footer{padding:44px 0;border-top:1px solid rgba(255,255,255,.08);display:grid;grid-template-columns:2fr repeat(4,1fr);gap:28px}.footer p{color:#91a2ba;font-size:13px;line-height:1.7}.footer h4{margin:0 0 12px}.footer a{display:block;color:#aab7ca;font-size:13px;margin:8px 0}.footer a:hover{color:white}.footer-brand .logo{width:38px;height:38px;font-size:20px}.bottom-strip{width:min(1180px,92%);margin:0 auto 18px;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(255,255,255,.12);border-radius:18px;overflow:hidden;background:rgba(12,18,34,.95)}.bottom-strip div{padding:20px 30px;border-right:1px solid rgba(255,255,255,.08)}.bottom-strip b{display:block}.bottom-strip span{display:block;color:#9daac0;margin-top:5px}
+button,a,.card,.price-card,.steps div,.testimonial,.value-card,details{transition:.22s ease}.btn:hover,.cta:hover,.price-card button:hover,.cta-section a:hover{transform:translateY(-2px);filter:brightness(1.08)}.card:hover,.price-card:hover,.steps div:hover,.testimonial:hover,.value-card:hover,details:hover{transform:translateY(-4px);border-color:rgba(124,60,255,.45)}
+@media(max-width:1100px){.hero{grid-template-columns:1fr}.pricing-grid{grid-template-columns:repeat(2,1fr)}.footer{grid-template-columns:1fr 1fr}}@media(max-width:800px){.navlinks{display:none}.nav{top:8px}.hero h1{font-size:46px;letter-spacing:-2px}.hero-stats,.features-grid,.steps,.value-grid,.pricing-grid,.testimonial-grid,.faq-grid,.footer,.bottom-strip{grid-template-columns:1fr}.mockup-body{grid-template-columns:1fr}.mockup aside,.mockup-side{display:none}.cta-section{flex-direction:column;text-align:center}}
+</style>
 </head>
-
 <body>
 
 <header class="nav">
-  <a class="brand" href="#top">
-    <div class="logo">Q</div>
-    <div>
-      <strong>Qevanta</strong>
-      <small>Audience Intelligence</small>
-    </div>
-  </a>
-
-  <nav class="navlinks">
-    <a href="#features">Features</a>
-    <a href="#how">How It Works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#testimonials">Testimonials</a>
-    <a href="affiliate.html">Affiliates</a>
-    <a href="#faq">FAQ</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-
+  <a class="brand" href="#top"><div class="logo">Q</div><div><strong>Qevanta</strong><small>Audience Intelligence</small></div></a>
+  <nav class="navlinks"><a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="#testimonials">Testimonials</a><a href="affiliate.html">Affiliates</a><a href="#faq">FAQ</a><a href="contact.html">Contact</a></nav>
   <a class="cta" href="#pricing">Start Free</a>
 </header>
 
 <main id="top">
-
 <section class="hero wrap">
   <div class="hero-text">
     <div class="badge">🌐 Chrome Extension for Smarter Lead Research</div>
     <h1>Turn public audiences into <span>qualified lead lists.</span></h1>
-    <p>
-      Qevanta helps agencies, freelancers, marketers, and growth teams research public Instagram audiences,
-      extract profile links, organize leads, and prepare outreach-ready lists in minutes.
-    </p>
-    <div class="hero-actions">
-      <a class="btn primary" href="#pricing">Start Free Now</a>
-      <a class="btn secondary" href="#how">See How It Works</a>
-    </div>
-
-    <div class="hero-stats">
-      <div><b>100</b><span>Free Credits</span></div>
-      <div><b>10K+</b><span>Pro Credits</span></div>
-      <div><b>Bulk</b><span>Extraction</span></div>
-      <div><b>Secure</b><span>Private Access</span></div>
-    </div>
+    <p>Qevanta helps agencies, freelancers, marketers, and growth teams research public Instagram audiences, extract profile links, organize leads, and prepare outreach-ready lists in minutes.</p>
+    <div class="hero-actions"><a class="btn primary" href="#pricing">Start Free Now</a><a class="btn secondary" href="#how">See How It Works</a></div>
+    <div class="hero-stats"><div><b>100</b><span>Free Credits</span></div><div><b>10K+</b><span>Pro Credits</span></div><div><b>Bulk</b><span>Extraction</span></div><div><b>Secure</b><span>Private Access</span></div></div>
   </div>
-
   <div class="mockup">
-    <div class="mockup-top">
-      <div class="mini-logo">Q</div>
-      <b>Qevanta</b>
-      <span>New Analysis</span>
-    </div>
+    <div class="mockup-top"><div class="mini-logo">Q</div><b>Qevanta</b><span>New Analysis</span></div>
     <div class="mockup-body">
-      <aside>
-        <span>Dashboard</span>
-        <span class="active">New Analysis</span>
-        <span>Results</span>
-        <span>Open Links</span>
-        <span>Saved Lists</span>
-        <span>Affiliate</span>
-        <span>Account</span>
-      </aside>
-
-      <div class="mockup-form">
-        <label>Source</label>
-        <div class="fake-input">Instagram username or profile URL</div>
-        <label>Lead Type</label>
-        <div class="fake-input">Business</div>
-        <label>Keywords</label>
-        <div class="chips"><i>marketing</i><i>agency</i><i>branding</i></div>
-        <label>Exclude</label>
-        <div class="chips"><i>personal</i><i>celebrity</i><i>model</i></div>
-        <button>Start Analysis</button>
-      </div>
-
-      <div class="mockup-side">
-        <div><span>Plan</span><b>Pro</b></div>
-        <div><span>Credits</span><b>8,420 / 10,000</b><em></em></div>
-        <div><span>Open Links</span><b>25 / 25</b><em></em></div>
-        <div><span>Speed</span><b>Normal</b></div>
-      </div>
+      <aside><span>Dashboard</span><span class="active">New Analysis</span><span>Results</span><span>Open Links</span><span>Saved Lists</span><span>Affiliate</span><span>Account</span></aside>
+      <div class="mockup-form"><label>Source</label><div class="fake-input">Instagram username or profile URL</div><label>Lead Type</label><div class="fake-input">Business</div><label>Keywords</label><div class="chips"><i>marketing</i><i>agency</i><i>branding</i></div><label>Exclude</label><div class="chips"><i>personal</i><i>celebrity</i><i>model</i></div><button>Start Analysis</button></div>
+      <div class="mockup-side"><div><span>Plan</span><b>Pro</b></div><div><span>Credits</span><b>8,420 / 10,000</b><em></em></div><div><span>Open Links</span><b>25 / 25</b><em></em></div><div><span>Speed</span><b>Normal</b></div></div>
     </div>
   </div>
 </section>
 
-<section class="trusted wrap">
-  <p>TRUSTED BY GROWTH TEAMS WORLDWIDE</p>
-  <div>
-    <span>👥 Agencies</span>
-    <span>🧑‍💻 Freelancers</span>
-    <span>🚀 Marketers</span>
-    <span>🤝 Consultants</span>
-    <span>🧠 Growth Teams</span>
-  </div>
-</section>
+<section class="trusted wrap"><p>TRUSTED BY GROWTH TEAMS WORLDWIDE</p><div><span>👥 Agencies</span><span>🧑‍💻 Freelancers</span><span>🚀 Marketers</span><span>🤝 Consultants</span><span>🧠 Growth Teams</span></div></section>
 
-<section id="features" class="section wrap">
-  <h2>Powerful Features</h2>
-  <p class="sub">Everything you need to find, extract, and organize high-quality leads.</p>
+<section id="features" class="section wrap"><h2>Powerful Features</h2><p class="sub">Everything you need to find, extract, and organize high-quality leads.</p><div class="features-grid"><div class="card"><div class="icon">🔍</div><h3>Audience Research</h3><p>Research public Instagram audiences with smart filters, keywords, and exclusions.</p></div><div class="card"><div class="icon">👤</div><h3>Lead Extraction</h3><p>Extract profile links, usernames, names, and organize them into clean lead lists.</p></div><div class="card"><div class="icon">🧩</div><h3>Bulk Processing</h3><p>Analyze multiple sources with bulk URL manager and automated extraction workflows.</p></div><div class="card"><div class="icon">📤</div><h3>Data Export</h3><p>Export leads to CSV or Excel and move them into your outreach process.</p></div><div class="card"><div class="icon">🔗</div><h3>Open Links</h3><p>Open extracted profiles in controlled batches with plan-based smart limits.</p></div><div class="card"><div class="icon">🛡️</div><h3>Secure & Private</h3><p>Account access, verification, and usage controls are designed for safe launch.</p></div></div></section>
 
-  <div class="features-grid">
-    <div class="card"><div class="icon">🔍</div><h3>Audience Research</h3><p>Research public Instagram audiences with smart filters, keywords, and exclusions.</p></div>
-    <div class="card"><div class="icon">👤</div><h3>Lead Extraction</h3><p>Extract profile links, usernames, names, and organize them into clean lead lists.</p></div>
-    <div class="card"><div class="icon">🧩</div><h3>Bulk Processing</h3><p>Analyze multiple sources with bulk URL manager and automated extraction workflows.</p></div>
-    <div class="card"><div class="icon">📤</div><h3>Data Export</h3><p>Export leads to CSV or Excel and move them into your outreach process.</p></div>
-    <div class="card"><div class="icon">🔗</div><h3>Open Links</h3><p>Open extracted profiles in controlled batches with plan-based smart limits.</p></div>
-    <div class="card"><div class="icon">🛡️</div><h3>Secure & Private</h3><p>Account access, verification, and usage controls are designed for safe launch.</p></div>
-  </div>
-</section>
+<section id="how" class="section wrap"><h2>How It Works</h2><p class="sub">A simple workflow from audience source to outreach-ready leads.</p><div class="steps"><div><b>1</b><h3>Add Source</h3><p>Add any public Instagram username or profile URL.</p></div><div><b>2</b><h3>Set Filters</h3><p>Choose lead type, keywords, exclusions, and location signals.</p></div><div><b>3</b><h3>Extract Leads</h3><p>Qevanta finds matching profiles and organizes them into results.</p></div><div><b>4</b><h3>Export & Outreach</h3><p>Export your list and start outreach with better structure.</p></div></div></section>
 
-<section id="how" class="section wrap">
-  <h2>How It Works</h2>
-  <p class="sub">A simple workflow from audience source to outreach-ready leads.</p>
+<section class="section wrap"><h2>Built for Professionals</h2><p class="sub">Qevanta is designed for people who need cleaner research, faster workflows, and better lead organization.</p><div class="value-grid"><div class="value-card"><h3>👥 Agencies</h3><p>Build lists for client campaigns without manual spreadsheet chaos.</p></div><div class="value-card"><h3>🧑‍💻 Freelancers</h3><p>Find targeted opportunities and keep prospecting work simple.</p></div><div class="value-card"><h3>🛡️ Secure & Private</h3><p>Your account, usage, and saved data stay controlled and protected.</p></div></div></section>
 
-  <div class="steps">
-    <div><b>1</b><h3>Add Source</h3><p>Add any public Instagram username or profile URL.</p></div>
-    <div><b>2</b><h3>Set Filters</h3><p>Choose lead type, keywords, exclusions, and location signals.</p></div>
-    <div><b>3</b><h3>Extract Leads</h3><p>Qevanta finds matching profiles and organizes them into results.</p></div>
-    <div><b>4</b><h3>Export & Outreach</h3><p>Export your list and start outreach with better structure.</p></div>
-  </div>
-</section>
+<section id="pricing" class="section wrap"><h2>Simple, Transparent Pricing</h2><p class="sub">Start free, upgrade when your workflow grows.</p><div class="pricing-grid"><div class="price-card"><h3>Free</h3><div class="price">$0<span>/forever</span></div><ul><li>100 credits / month</li><li>Single source</li><li>10 visible leads</li><li>Basic filters</li><li>CSV export</li></ul><button onclick="startPlan('free')">Get Started</button></div><div class="price-card"><h3>Starter</h3><div class="price">$29<span>/month</span></div><ul><li>3,000 credits / month</li><li>Bulk URL access</li><li>Up to 10 open tabs</li><li>Advanced filters</li><li>CSV export</li></ul><button onclick="startPlan('starter')">Choose Starter</button></div><div class="price-card popular"><div class="ribbon">Most Popular</div><h3>Pro</h3><div class="price">$69<span>/month</span></div><ul><li>10,000 credits / month</li><li>Country, state & city targeting</li><li>Up to 25 open tabs</li><li>CSV + Excel export</li><li>AI lead insights</li></ul><button onclick="startPlan('pro')">Choose Pro</button></div><div class="price-card agency"><div class="ribbon gold">Best Value</div><h3>Agency</h3><div class="price">$149<span>/month</span></div><ul><li>Unlimited credits</li><li>Unlimited open tabs</li><li>Priority features</li><li>Dedicated support</li><li>Affiliate dashboard</li></ul><button onclick="startPlan('agency')">Choose Agency</button></div></div></section>
 
-<section class="section wrap">
-  <h2>Built for Professionals</h2>
-  <p class="sub">Qevanta is designed for people who need cleaner research, faster workflows, and better lead organization.</p>
+<section id="testimonials" class="section wrap"><h2>What Our Users Say</h2><div class="testimonial-grid"><div class="testimonial"><b>James Carter</b><span>Growth Marketer</span><p>“Qevanta saved me countless hours. I can now build targeted lead lists faster than ever.”</p><em>★★★★★</em></div><div class="testimonial"><b>Sarah Mitchell</b><span>Agency Owner</span><p>“The bulk extraction and clean exports are exactly what our agency needed.”</p><em>★★★★★</em></div><div class="testimonial"><b>Michael Brown</b><span>Freelancer</span><p>“Super easy to use and powerful results. Highly recommended for freelancers.”</p><em>★★★★★</em></div></div></section>
 
-  <div class="value-grid">
-    <div class="value-card"><h3>👥 Agencies</h3><p>Build lists for client campaigns without manual spreadsheet chaos.</p></div>
-    <div class="value-card"><h3>🧑‍💻 Freelancers</h3><p>Find targeted opportunities and keep prospecting work simple.</p></div>
-    <div class="value-card"><h3>🛡️ Secure & Private</h3><p>Your account, usage, and saved data stay controlled and protected.</p></div>
-  </div>
-</section>
+<section id="faq" class="section wrap faq"><h2>Frequently Asked Questions</h2><div class="faq-grid"><details open><summary>Does Qevanta collect private data?</summary><p>No. Qevanta is designed for public audience research workflows only.</p></details><details><summary>How do credits work?</summary><p>Credits control monthly usage based on your plan and account status.</p></details><details><summary>How do clients install Qevanta?</summary><p>Users will install Qevanta from the Chrome Web Store, pin the extension, create an account, and start researching leads.</p></details><details><summary>Is Stripe connected?</summary><p>Stripe billing will be connected at the final stage after the website and extension UI are stable.</p></details></div></section>
 
-<section id="pricing" class="section wrap">
-  <h2>Simple, Transparent Pricing</h2>
-  <p class="sub">Start free, upgrade when your workflow grows.</p>
-
-  <div class="pricing-grid">
-    <div class="price-card">
-      <h3>Free</h3>
-      <div class="price">$0<span>/forever</span></div>
-      <ul>
-        <li>100 credits / month</li>
-        <li>Single source</li>
-        <li>10 visible leads</li>
-        <li>Basic filters</li>
-        <li>CSV export</li>
-      </ul>
-      <button onclick="startPlan('free')">Get Started</button>
-    </div>
-
-    <div class="price-card">
-      <h3>Starter</h3>
-      <div class="price">$29<span>/month</span></div>
-      <ul>
-        <li>3,000 credits / month</li>
-        <li>Bulk URL access</li>
-        <li>Up to 10 open tabs</li>
-        <li>Advanced filters</li>
-        <li>CSV export</li>
-      </ul>
-      <button onclick="startPlan('starter')">Choose Starter</button>
-    </div>
-
-    <div class="price-card popular">
-      <div class="ribbon">Most Popular</div>
-      <h3>Pro</h3>
-      <div class="price">$69<span>/month</span></div>
-      <ul>
-        <li>10,000 credits / month</li>
-        <li>Country, state & city targeting</li>
-        <li>Up to 25 open tabs</li>
-        <li>CSV + Excel export</li>
-        <li>AI lead insights</li>
-      </ul>
-      <button onclick="startPlan('pro')">Choose Pro</button>
-    </div>
-
-    <div class="price-card agency">
-      <div class="ribbon gold">Best Value</div>
-      <h3>Agency</h3>
-      <div class="price">$149<span>/month</span></div>
-      <ul>
-        <li>Unlimited credits</li>
-        <li>Unlimited open tabs</li>
-        <li>Priority features</li>
-        <li>Dedicated support</li>
-        <li>Affiliate dashboard</li>
-      </ul>
-      <button onclick="startPlan('agency')">Choose Agency</button>
-    </div>
-  </div>
-</section>
-
-<section id="testimonials" class="section wrap">
-  <h2>What Our Users Say</h2>
-  <div class="testimonial-grid">
-    <div class="testimonial"><b>James Carter</b><span>Growth Marketer</span><p>“Qevanta saved me countless hours. I can now build targeted lead lists faster than ever.”</p><em>★★★★★</em></div>
-    <div class="testimonial"><b>Sarah Mitchell</b><span>Agency Owner</span><p>“The bulk extraction and clean exports are exactly what our agency needed.”</p><em>★★★★★</em></div>
-    <div class="testimonial"><b>Michael Brown</b><span>Freelancer</span><p>“Super easy to use and powerful results. Highly recommended for freelancers.”</p><em>★★★★★</em></div>
-  </div>
-</section>
-
-<section id="faq" class="section wrap faq">
-  <h2>Frequently Asked Questions</h2>
-  <div class="faq-grid">
-    <details open><summary>Does Qevanta collect private data?</summary><p>No. Qevanta is designed for public audience research workflows only.</p></details>
-    <details><summary>How do credits work?</summary><p>Credits control monthly usage based on your plan and account status.</p></details>
-    <details><summary>How do clients install Qevanta?</summary><p>Users will install Qevanta from the Chrome Web Store, pin the extension, create an account, and start researching leads.</p></details>
-    <details><summary>Is Stripe connected?</summary><p>Stripe billing will be connected at the final stage after the website and extension UI are stable.</p></details>
-  </div>
-</section>
-
-<section class="cta-section wrap">
-  <div>
-    <h2>Ready to 10x Your Lead Research?</h2>
-    <p>Join professionals using Qevanta to grow smarter lead lists.</p>
-  </div>
-  <a href="#pricing">Start Free Now</a>
-</section>
-
+<section class="cta-section wrap"><div><h2>Ready to 10x Your Lead Research?</h2><p>Join professionals using Qevanta to grow smarter lead lists.</p></div><a href="#pricing">Start Free Now</a></section>
 </main>
 
-<footer class="footer wrap">
-  <div>
-    <a class="brand footer-brand" href="index.html">
-      <div class="logo">Q</div>
-      <div><strong>Qevanta</strong><small>Audience Intelligence</small></div>
-    </a>
-    <p>Qevanta helps you turn public Instagram audiences into qualified lead lists.</p>
-  </div>
+<footer class="footer wrap"><div><a class="brand footer-brand" href="index.html"><div class="logo">Q</div><div><strong>Qevanta</strong><small>Audience Intelligence</small></div></a><p>Qevanta helps you turn public Instagram audiences into qualified lead lists.</p></div><div><h4>Product</h4><a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a></div><div><h4>Company</h4><a href="contact.html">Contact</a><a href="affiliate.html">Affiliates</a></div><div><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="refund.html">Refund Policy</a></div><div><h4>Support</h4><a href="contact.html">Help Center</a><a href="reset-password.html">Reset Password</a></div></footer>
+<div class="bottom-strip"><div>👥 <b>Built for Professionals</b><span>Agencies, Freelancers, Marketers, Growth Teams & Consultants</span></div><div>🛡️ <b>Secure & Private</b><span>Your data is always safe.</span></div><div>⚡ <b>Backed by Technology</b><span>Smart filters and automation.</span></div></div>
 
-  <div><h4>Product</h4><a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a></div>
-  <div><h4>Company</h4><a href="contact.html">Contact</a><a href="affiliate.html">Affiliates</a></div>
-  <div><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="refund.html">Refund Policy</a></div>
-  <div><h4>Support</h4><a href="contact.html">Help Center</a><a href="reset-password.html">Reset Password</a></div>
-</footer>
-
-<div class="bottom-strip">
-  <div>👥 <b>Built for Professionals</b><span>Agencies, Freelancers, Marketers, Growth Teams & Consultants</span></div>
-  <div>🛡️ <b>Secure & Private</b><span>Your data is always safe.</span></div>
-  <div>⚡ <b>Backed by Technology</b><span>Smart filters and automation.</span></div>
-</div>
-
-<script src="script.js"></script>
+<script>
+function startPlan(plan){alert("Plan selected: "+String(plan).toUpperCase()+"\n\nStripe checkout will be connected later.")}
+</script>
 </body>
 </html>
