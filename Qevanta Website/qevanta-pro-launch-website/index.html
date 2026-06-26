@@ -1,1 +1,384 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Qevanta — Audience Intelligence & Lead Discovery</title><meta name="description" content="Qevanta helps agencies, freelancers, and growth teams turn public audiences into qualified business opportunities."><link rel="stylesheet" href="style.css"></head><body><nav class="nav"><a class="brand" href="#top"><div class="logo">Q</div><div><strong>Qevanta</strong><small>Audience Intelligence</small></div></a><div class="navlinks"><a href="#features">Features</a><a href="#workflow">Workflow</a><a href="#dashboard">Dashboard</a><a href="#affiliate">Affiliates</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div><a class="cta" href="#pricing">Start Free</a></nav><main id="top"><section class="hero wrap"><div class="badge"><span class="dot"></span>Built for agencies, freelancers & growth teams</div><h1>Turn any public audience into <span class="grad">qualified business opportunities.</span></h1><p class="lead">Qevanta helps you research public Instagram audiences, extract structured lead links, manage outreach-ready lists, track usage credits, and scale prospecting with a clean workflow.</p><div class="hero-actions"><a class="btn" href="#pricing">Launch Qevanta</a><a class="btn secondary" href="#dashboard">View Dashboard</a></div><div class="metrics"><div class="metric"><b>5x</b><span>faster list building</span></div><div class="metric"><b>100+</b><span>free monthly credits</span></div><div class="metric"><b>24/7</b><span>self-serve access</span></div><div class="metric"><b>15%</b><span>affiliate commission</span></div></div></section><section id="features" class="section wrap"><h2>Everything your lead workflow needs.</h2><p class="sub">A polished SaaS experience for research, saved lists, lead links, credits, plan control, and affiliate growth — built around a Chrome extension and a conversion-focused website.</p><div class="grid cols-3"><div class="card"><div class="icon">🎯</div><h3>Audience Research</h3><p>Turn public profiles and audiences into organized research lists with campaign-ready targeting inputs.</p></div><div class="card"><div class="icon">🔗</div><h3>Lead Link Extraction</h3><p>Extract and export unique lead links so your team can move from discovery to qualification faster.</p></div><div class="card"><div class="icon">📊</div><h3>Usage & Credit Control</h3><p>Plans, monthly credits, trials, and account status stay synced with your backend for launch-safe access.</p></div><div class="card"><div class="icon">🧹</div><h3>Clean Lists</h3><p>Filter, deduplicate, save, export, and prepare audience data before outreach or manual review.</p></div><div class="card"><div class="icon">🔒</div><h3>Secure Accounts</h3><p>Email verification, login, logout, password recovery, and Supabase-based profile control.</p></div><div class="card"><div class="icon">💸</div><h3>Affiliate Ready</h3><p>Referral-code foundation, discount validation, affiliate earnings UI, and future Stripe payout tracking.</p></div></div></section><section id="workflow" class="section wrap"><h2>A clean workflow from search to opportunity.</h2><div class="grid cols-3"><div class="card"><h3>01. Choose your audience</h3><p>Define niche, geography, include words, exclude words, and targeting filters.</p></div><div class="card"><h3>02. Build your list</h3><p>Collect public lead links, save lists, and export structured data for review.</p></div><div class="card"><h3>03. Convert smarter</h3><p>Use better-qualified opportunities, credit-based access, and referral-driven growth.</p></div></div></section><section id="dashboard" class="section wrap"><h2>Polished dashboard experience.</h2><p class="sub">Designed to feel premium before users even install the extension.</p><div class="dashboard"><aside class="sidebar"><div class="sideitem active">Overview</div><div class="sideitem">Lead Builder</div><div class="sideitem">Saved Lists</div><div class="sideitem">Credits</div><div class="sideitem">Affiliate Center</div><div class="sideitem">Billing</div></aside><div class="screen"><div class="screen-top"><div><h3>Campaign Overview</h3><p class="sub">Live preview of how Qevanta organizes user workflows.</p></div><span class="pill">Active</span></div><table class="table"><thead><tr><th>Campaign</th><th>Audience</th><th>Status</th><th>Credits</th></tr></thead><tbody><tr><td>Solar Consultants</td><td>Public IG profiles</td><td><span class="pill">Ready</span></td><td>42</td></tr><tr><td>Contractor Leads</td><td>Niche followers</td><td><span class="pill">Saved</span></td><td>18</td></tr><tr><td>Agency Partners</td><td>Manual list</td><td><span class="pill">Review</span></td><td>25</td></tr></tbody></table></div></div></section><section id="affiliate" class="section wrap"><h2>Affiliate growth system.</h2><p class="sub">Give partners a code, let customers apply it at checkout, and track discount + commission records in Supabase.</p><div class="grid cols-2"><div class="card"><h3>Apply Referral Code</h3><p>Customer enters a code before selecting a plan.</p><div class="refbox"><input id="referralCode" placeholder="Enter referral code"><button class="btn" onclick="applyReferral()">Apply</button></div><div id="refStatus" class="status"></div></div><div class="card"><h3>Affiliate Dashboard Preview</h3><p>Your affiliate center can show:</p><ul><li>Referral code</li><li>Total referrals</li><li>Total pending commission</li><li>Paid earnings</li><li>Copy referral link</li></ul><button class="btn secondary" onclick="openModal('affiliateModal')">Open Affiliate Preview</button></div></div></section><section id="pricing" class="section wrap"><h2>Simple plans for every growth stage.</h2><p class="sub">Manual upgrade-ready now. Stripe checkout can be connected to these buttons when ready.</p><div class="grid pricing"><div class="card price"><h3>Free</h3><div class="amount">$0</div><p>For testing Qevanta.</p><ul><li>100 monthly credits</li><li>Basic extraction</li><li>Saved local lists</li><li>Email account access</li></ul><button class="btn secondary" onclick="startPlan('free')">Start Free</button></div><div class="card price popular"><span class="pill">Most Popular</span><h3>Pro</h3><div class="amount">$29</div><p>For active lead builders.</p><ul><li>10,000 credits</li><li>Bulk workflow</li><li>Advanced filtering</li><li>Priority updates</li></ul><button class="btn" onclick="startPlan('pro')">Choose Pro</button></div><div class="card price"><h3>Agency</h3><div class="amount">$79</div><p>For teams and operators.</p><ul><li>Unlimited-style access</li><li>Higher open limits</li><li>Team workflows</li><li>Affiliate partnership support</li></ul><button class="btn secondary" onclick="startPlan('agency')">Choose Agency</button></div></div></section><section class="section wrap"><h2>Trusted by growth operators.</h2><div class="grid testimonials"><div class="card"><p class="quote">“Qevanta turned audience research into a repeatable daily system. The workflow feels clean and practical.”</p><div class="avatar"><div>A</div><span>Agency Founder</span></div></div><div class="card"><p class="quote">“The credit system makes it easy to package access and keep usage under control.”</p><div class="avatar"><div>M</div><span>Marketing Operator</span></div></div><div class="card"><p class="quote">“Exactly the kind of lightweight lead discovery tool freelancers can actually use.”</p><div class="avatar"><div>S</div><span>Sales Consultant</span></div></div></div></section><section id="faq" class="section wrap faq"><h2>Questions before launch?</h2><div class="grid cols-2"><details open><summary>Does Qevanta scrape private data?</summary><p>No. Qevanta is designed around public audience research workflows.</p></details><details><summary>How do credits work?</summary><p>Credits are stored in Supabase and deducted as users scan or collect results.</p></details><details><summary>Is affiliate tracking ready?</summary><p>The database functions and website UI are included. Stripe webhook automation can be added next.</p></details><details><summary>Can I launch without Google login?</summary><p>Yes. Email/password with verification is the safest first launch flow.</p></details></div></section><section class="section wrap"><div class="card" style="text-align:center"><h2>Ready to build qualified opportunities?</h2><p class="sub" style="margin:auto auto 24px">Launch Qevanta with a polished website, extension-based workflow, affiliate foundation, and scalable billing path.</p><a class="btn" href="#pricing">Get Started</a></div></section></main><footer class="footer"><div class="wrap"><div>© 2026 Qevanta. All rights reserved.</div><div><a href="reset-password.html">Reset Password</a> · <a href="login-success.html">Login Success</a> · <a href="#faq">FAQ</a></div></div></footer><div class="modal" id="affiliateModal"><div class="modalbox"><button class="close" onclick="closeModal('affiliateModal')">×</button><h2>Affiliate Center</h2><p>Your referral code</p><div class="refbox"><input id="myCode" value="QEVA-PARTNER-2026" readonly><button class="btn" onclick="copyCode()">Copy</button></div><table class="table"><tr><th>Metric</th><th>Value</th></tr><tr><td>Total referrals</td><td>24</td></tr><tr><td>Pending commission</td><td>$348.00</td></tr><tr><td>Paid commission</td><td>$920.00</td></tr></table></div></div><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Qevanta — Audience Intelligence & Lead Discovery</title>
+  <meta name="description" content="Qevanta helps agencies, freelancers, and growth teams turn public Instagram audiences into qualified lead lists.">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<nav class="nav">
+  <a class="brand" href="#top">
+    <div class="logo">Q</div>
+    <div>
+      <strong>Qevanta</strong>
+      <small>Audience Intelligence</small>
+    </div>
+  </a>
+
+  <div class="navlinks">
+    <a href="#features">Features</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#affiliate">Affiliates</a>
+    <a href="#contact">Contact</a>
+    <a href="#faq">FAQ</a>
+  </div>
+
+  <a class="cta" href="#pricing">Start Free</a>
+</nav>
+
+<main id="top">
+
+  <section class="hero wrap">
+    <div class="badge"><span class="dot"></span> Chrome extension for smarter lead research</div>
+
+    <h1>Turn public audiences into <span class="grad">qualified lead lists.</span></h1>
+
+    <p class="lead">
+      Qevanta helps agencies, freelancers, and growth teams research public Instagram audiences,
+      organize lead signals, extract profile links, and build outreach-ready lists without messy spreadsheets.
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn" href="#pricing">Start Free</a>
+      <a class="btn secondary" href="#features">See Features</a>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><b>100</b><span>free monthly credits</span></div>
+      <div class="metric"><b>10k</b><span>Pro monthly credits</span></div>
+      <div class="metric"><b>15%</b><span>affiliate commission</span></div>
+      <div class="metric"><b>Fast</b><span>Chrome-based workflow</span></div>
+    </div>
+  </section>
+
+  <section id="features" class="section wrap">
+    <h2>Built for daily prospecting work.</h2>
+    <p class="sub">
+      Qevanta focuses on practical lead discovery: clean inputs, saved lists, exports, usage limits,
+      plan controls, and a simple workflow your team can repeat every day.
+    </p>
+
+    <div class="grid cols-3">
+      <div class="card">
+        <div class="icon">🎯</div>
+        <h3>Audience Research</h3>
+        <p>Research public Instagram audiences using target lead types, include words, exclude words, and location signals.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🔗</div>
+        <h3>Lead Link Extraction</h3>
+        <p>Extract unique profile links from matched results and prepare them for manual review or outreach workflows.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>Credit Control</h3>
+        <p>Keep access controlled with plans, credits, usage tracking, and backend profile sync through Supabase.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🧹</div>
+        <h3>Clean Lists</h3>
+        <p>Deduplicate links, save lists, export results, and keep your prospecting workspace organized.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🔒</div>
+        <h3>Secure Accounts</h3>
+        <p>Email verification, login, logout, password reset, and protected account access are included from launch.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🤝</div>
+        <h3>Affiliate Ready</h3>
+        <p>Referral code tracking is built in, with commission logic ready to connect after billing is live.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="workflow" class="section wrap">
+    <h2>From audience research to outreach-ready lists.</h2>
+
+    <div class="grid cols-3">
+      <div class="card">
+        <h3>01. Add a source</h3>
+        <p>Add a public Instagram profile or audience source that matches your campaign direction.</p>
+      </div>
+
+      <div class="card">
+        <h3>02. Define your target</h3>
+        <p>Enter target lead types, keywords, exclusions, and optional location signals to improve relevance.</p>
+      </div>
+
+      <div class="card">
+        <h3>03. Review and export</h3>
+        <p>Review matched leads, extract profile links, copy URLs, or export results for your next workflow.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboard" class="section wrap">
+    <h2>A cleaner dashboard experience.</h2>
+    <p class="sub">A premium-looking workflow that keeps research, results, saved lists, credits, and affiliate activity in one place.</p>
+
+    <div class="dashboard">
+      <aside class="sidebar">
+        <div class="sideitem active">Overview</div>
+        <div class="sideitem">New Analysis</div>
+        <div class="sideitem">Results</div>
+        <div class="sideitem">Open Links</div>
+        <div class="sideitem">Affiliate</div>
+        <div class="sideitem">Account</div>
+      </aside>
+
+      <div class="screen">
+        <div class="screen-top">
+          <div>
+            <h3>Campaign Overview</h3>
+            <p class="sub">Example of how Qevanta keeps lead research structured.</p>
+          </div>
+          <span class="pill">Active</span>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Campaign</th>
+              <th>Audience</th>
+              <th>Status</th>
+              <th>Credits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Agency Partners</td>
+              <td>Public profiles</td>
+              <td><span class="pill">Ready</span></td>
+              <td>42</td>
+            </tr>
+            <tr>
+              <td>Local Contractors</td>
+              <td>Niche followers</td>
+              <td><span class="pill">Saved</span></td>
+              <td>18</td>
+            </tr>
+            <tr>
+              <td>Consultant Leads</td>
+              <td>Manual review</td>
+              <td><span class="pill">Review</span></td>
+              <td>25</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section wrap">
+    <h2>Simple plans for launch.</h2>
+    <p class="sub">
+      Start free, then upgrade when you need more credits, bulk workflows, faster controls, and larger link-opening limits.
+    </p>
+
+    <div class="grid pricing">
+      <div class="card price">
+        <h3>Free</h3>
+        <div class="amount">$0</div>
+        <p>For testing Qevanta.</p>
+        <ul>
+          <li>100 monthly credits</li>
+          <li>Basic lead research</li>
+          <li>Limited visible leads</li>
+          <li>Email account access</li>
+        </ul>
+        <button class="btn secondary" onclick="startPlan('free')">Start Free</button>
+      </div>
+
+      <div class="card price popular">
+        <span class="pill">Most Popular</span>
+        <h3>Pro</h3>
+        <div class="amount">$29</div>
+        <p>For active prospecting.</p>
+        <ul>
+          <li>10,000 monthly credits</li>
+          <li>Bulk workflow access</li>
+          <li>Advanced filters</li>
+          <li>Export tools</li>
+        </ul>
+        <button class="btn" onclick="startPlan('pro')">Choose Pro</button>
+      </div>
+
+      <div class="card price">
+        <h3>Agency</h3>
+        <div class="amount">$79</div>
+        <p>For teams and operators.</p>
+        <ul>
+          <li>High-volume access</li>
+          <li>Larger opening limits</li>
+          <li>Agency workflows</li>
+          <li>Affiliate support</li>
+        </ul>
+        <button class="btn secondary" onclick="startPlan('agency')">Choose Agency</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="affiliate" class="section wrap">
+    <h2>Built-in affiliate foundation.</h2>
+    <p class="sub">
+      Partners can share a code, customers can apply it, and referral records can later connect with Stripe payment events.
+    </p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Apply Referral Code</h3>
+        <p>Enter a referral code before choosing a plan.</p>
+
+        <div class="refbox">
+          <input id="referralCode" placeholder="Enter referral code">
+          <button class="btn" onclick="applyReferral()">Apply</button>
+        </div>
+
+        <div id="refStatus" class="status"></div>
+      </div>
+
+      <div class="card">
+        <h3>Become an Affiliate</h3>
+        <p>
+          Promote Qevanta to agencies, freelancers, and growth teams.
+          Affiliates can earn commission when referred users become paid customers.
+        </p>
+
+        <ul>
+          <li>Referral code system</li>
+          <li>Dashboard-ready tracking</li>
+          <li>Commission logic for paid plans</li>
+          <li>Manual approval before launch</li>
+        </ul>
+
+        <a class="btn secondary" href="#contact">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <h2>What early users are saying.</h2>
+
+    <div class="grid testimonials">
+      <div class="card">
+        <p class="quote">“Qevanta makes lead research feel structured instead of messy. The workflow is simple and practical.”</p>
+        <div class="avatar"><div>A</div><span>Agency Founder</span></div>
+      </div>
+
+      <div class="card">
+        <p class="quote">“The credit system makes it easy to control usage while still giving users enough room to test.”</p>
+        <div class="avatar"><div>M</div><span>Marketing Operator</span></div>
+      </div>
+
+      <div class="card">
+        <p class="quote">“A lightweight prospecting tool that feels useful for freelancers and small growth teams.”</p>
+        <div class="avatar"><div>S</div><span>Sales Consultant</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section wrap">
+    <h2>Contact Qevanta</h2>
+    <p class="sub">Have a support question, affiliate request, or partnership idea? Send us a message.</p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Support</h3>
+        <p>Email us for account help, billing questions, affiliate requests, or product feedback.</p>
+        <p><b>Email:</b> support@qevanta.com</p>
+        <p class="sub">Temporary launch note: email address can be updated after custom domain setup.</p>
+      </div>
+
+      <div class="card">
+        <h3>Launch Roadmap</h3>
+        <ul>
+          <li>Email authentication and SMTP</li>
+          <li>Referral and affiliate tracking</li>
+          <li>Website polish and policy pages</li>
+          <li>Stripe billing integration</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section wrap faq">
+    <h2>Frequently asked questions.</h2>
+
+    <div class="grid cols-2">
+      <details open>
+        <summary>Does Qevanta collect private data?</summary>
+        <p>No. Qevanta is designed for public audience research workflows only.</p>
+      </details>
+
+      <details>
+        <summary>How do credits work?</summary>
+        <p>Credits control monthly usage based on the user’s plan and account status.</p>
+      </details>
+
+      <details>
+        <summary>Is the affiliate system ready?</summary>
+        <p>The referral foundation is ready. Commission updates will connect with Stripe payment events later.</p>
+      </details>
+
+      <details>
+        <summary>Can I start without a paid plan?</summary>
+        <p>Yes. The Free plan gives users a limited monthly allowance to test Qevanta.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="card final-cta">
+      <h2>Ready to build cleaner lead lists?</h2>
+      <p class="sub">Start with the free plan and upgrade when your workflow needs more volume.</p>
+      <a class="btn" href="#pricing">Get Started</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>© 2026 Qevanta. All rights reserved.</div>
+    <div>
+      <a href="privacy.html">Privacy Policy</a> ·
+      <a href="terms.html">Terms</a> ·
+      <a href="refund.html">Refund Policy</a> ·
+      <a href="reset-password.html">Reset Password</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal" id="affiliateModal">
+  <div class="modalbox">
+    <button class="close" onclick="closeModal('affiliateModal')">×</button>
+    <h2>Affiliate Center</h2>
+    <p>Your referral code</p>
+
+    <div class="refbox">
+      <input id="myCode" value="QEVA-PARTNER-2026" readonly>
+      <button class="btn" onclick="copyCode()">Copy</button>
+    </div>
+
+    <table class="table">
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Total referrals</td><td>24</td></tr>
+      <tr><td>Pending commission</td><td>$348.00</td></tr>
+      <tr><td>Paid commission</td><td>$920.00</td></tr>
+    </table>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
