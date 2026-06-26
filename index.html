@@ -1,401 +1,384 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Qevanta — AI Lead Intelligence Platform</title>
-  <meta name="description" content="Qevanta helps agencies, marketers and businesses turn public audiences into qualified leads using AI-powered prospecting tools." />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Qevanta — Audience Intelligence & Lead Discovery</title>
+  <meta name="description" content="Qevanta helps agencies, freelancers, and growth teams turn public Instagram audiences into qualified lead lists.">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-  <div class="noise"></div>
-  <div class="aurora aurora-one"></div>
-  <div class="aurora aurora-two"></div>
-  <div class="aurora aurora-three"></div>
-
-  <nav class="navbar">
-    <div class="brand">
-      <div class="brand-mark">Q</div>
-      <div>
-        <h3>Qevanta</h3>
-        <span>Audience Intelligence</span>
-      </div>
+<nav class="nav">
+  <a class="brand" href="#top">
+    <div class="logo">Q</div>
+    <div>
+      <strong>Qevanta</strong>
+      <small>Audience Intelligence</small>
     </div>
+  </a>
 
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#workflow">Workflow</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#policies">Policies</a>
-      <a href="#faq">FAQ</a>
-    </div>
+  <div class="navlinks">
+    <a href="#features">Features</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#affiliate">Affiliates</a>
+    <a href="#contact">Contact</a>
+    <a href="#faq">FAQ</a>
+  </div>
 
-    <a href="#pricing" class="nav-cta">Start Free</a>
-  </nav>
+  <a class="cta" href="#pricing">Start Free</a>
+</nav>
 
-  <section class="hero">
-    <div class="hero-badge">
-      <span></span>
-      Built for agencies, freelancers & growth teams
-    </div>
+<main id="top">
 
-    <h1>
-      Turn any public audience into
-      <span>qualified business opportunities.</span>
-    </h1>
+  <section class="hero wrap">
+    <div class="badge"><span class="dot"></span> Chrome extension for smarter lead research</div>
 
-    <p>
-      Qevanta helps you analyze public profiles, discover targeted leads,
-      filter by intent signals, organize prospects, and export clean data —
-      all from one premium prospecting dashboard.
+    <h1>Turn public audiences into <span class="grad">qualified lead lists.</span></h1>
+
+    <p class="lead">
+      Qevanta helps agencies, freelancers, and growth teams research public Instagram audiences,
+      organize lead signals, extract profile links, and build outreach-ready lists without messy spreadsheets.
     </p>
 
     <div class="hero-actions">
-      <a href="#pricing" class="primary-btn">Start Free Trial</a>
-      <a href="#demo" class="secondary-btn">See How It Works</a>
+      <a class="btn" href="#pricing">Start Free</a>
+      <a class="btn secondary" href="#features">See Features</a>
     </div>
 
-    <div class="hero-panel" id="demo">
-      <div class="panel-top">
-        <div class="dots">
-          <i></i><i></i><i></i>
-        </div>
-        <span>Qevanta Live Analysis</span>
+    <div class="metrics">
+      <div class="metric"><b>100</b><span>free monthly credits</span></div>
+      <div class="metric"><b>10k</b><span>Pro monthly credits</span></div>
+      <div class="metric"><b>15%</b><span>affiliate commission</span></div>
+      <div class="metric"><b>Fast</b><span>Chrome-based workflow</span></div>
+    </div>
+  </section>
+
+  <section id="features" class="section wrap">
+    <h2>Built for daily prospecting work.</h2>
+    <p class="sub">
+      Qevanta focuses on practical lead discovery: clean inputs, saved lists, exports, usage limits,
+      plan controls, and a simple workflow your team can repeat every day.
+    </p>
+
+    <div class="grid cols-3">
+      <div class="card">
+        <div class="icon">🎯</div>
+        <h3>Audience Research</h3>
+        <p>Research public Instagram audiences using target lead types, include words, exclude words, and location signals.</p>
       </div>
 
-      <div class="dashboard-preview">
-        <div class="sidebar-card">
-          <h4>Target Leads</h4>
-          <p>electrician</p>
-          <p>solar installer</p>
-          <p>real estate</p>
-        </div>
+      <div class="card">
+        <div class="icon">🔗</div>
+        <h3>Lead Link Extraction</h3>
+        <p>Extract unique profile links from matched results and prepare them for manual review or outreach workflows.</p>
+      </div>
 
-        <div class="scan-card">
-          <div class="scan-header">
-            <h4>Audience Scan</h4>
-            <span>Running</span>
-          </div>
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>Credit Control</h3>
+        <p>Keep access controlled with plans, credits, usage tracking, and backend profile sync through Supabase.</p>
+      </div>
 
-          <div class="progress">
-            <div></div>
-          </div>
+      <div class="card">
+        <div class="icon">🧹</div>
+        <h3>Clean Lists</h3>
+        <p>Deduplicate links, save lists, export results, and keep your prospecting workspace organized.</p>
+      </div>
 
-          <div class="metrics">
-            <div>
-              <strong>12,840</strong>
-              <small>Profiles scanned</small>
-            </div>
-            <div>
-              <strong>1,274</strong>
-              <small>Matched leads</small>
-            </div>
-            <div>
-              <strong>318</strong>
-              <small>Public contacts</small>
-            </div>
-          </div>
-        </div>
+      <div class="card">
+        <div class="icon">🔒</div>
+        <h3>Secure Accounts</h3>
+        <p>Email verification, login, logout, password reset, and protected account access are included from launch.</p>
+      </div>
 
-        <div class="lead-table">
-          <div class="row head">
-            <span>Score</span>
-            <span>Profile</span>
-            <span>Signal</span>
-          </div>
-          <div class="row">
-            <b>94</b>
-            <span>@growthagency</span>
-            <em>marketing, agency</em>
-          </div>
-          <div class="row">
-            <b>88</b>
-            <span>@localcontractor</span>
-            <em>contractor, city</em>
-          </div>
-          <div class="row">
-            <b>81</b>
-            <span>@solarpro</span>
-            <em>solar, website</em>
-          </div>
-        </div>
+      <div class="card">
+        <div class="icon">🤝</div>
+        <h3>Affiliate Ready</h3>
+        <p>Referral code tracking is built in, with commission logic ready to connect after billing is live.</p>
       </div>
     </div>
   </section>
 
-  <section class="trust">
-    <div>
-      <h2>10M+</h2>
-      <p>Profiles analyzed</p>
-    </div>
-    <div>
-      <h2>50K+</h2>
-      <p>Leads discovered</p>
-    </div>
-    <div>
-      <h2>5</h2>
-      <p>Growth-focused plans</p>
-    </div>
-    <div>
-      <h2>AI</h2>
-      <p>Lead intelligence</p>
-    </div>
-  </section>
+  <section id="workflow" class="section wrap">
+    <h2>From audience research to outreach-ready lists.</h2>
 
-  <section class="section" id="features">
-    <div class="section-heading">
-      <span>Features</span>
-      <h2>Everything you need to discover, qualify and organize leads.</h2>
-      <p>
-        Qevanta is designed as a serious lead intelligence layer for agencies,
-        marketers and businesses that rely on public audience research.
-      </p>
-    </div>
-
-    <div class="feature-grid">
-      <div class="feature-card large">
-        <div class="icon">◎</div>
-        <h3>Audience Analysis</h3>
-        <p>Analyze public followers and following lists to discover relevant business profiles.</p>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3>01. Add a source</h3>
+        <p>Add a public Instagram profile or audience source that matches your campaign direction.</p>
       </div>
 
-      <div class="feature-card">
-        <div class="icon">◇</div>
-        <h3>Target Lead Matching</h3>
-        <p>Search by keywords like electricians, agencies, coaches, realtors, restaurants and more.</p>
+      <div class="card">
+        <h3>02. Define your target</h3>
+        <p>Enter target lead types, keywords, exclusions, and optional location signals to improve relevance.</p>
       </div>
 
-      <div class="feature-card">
-        <div class="icon">⌁</div>
-        <h3>Bulk URL Manager</h3>
-        <p>Run multiple prospecting projects with organized saved URL lists.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="icon">⌖</div>
-        <h3>Location Targeting</h3>
-        <p>Filter leads by country, state and city on supported plans.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="icon">⇩</div>
-        <h3>CSV & Excel Export</h3>
-        <p>Export clean lead data for outreach, CRM import or client delivery.</p>
-      </div>
-
-      <div class="feature-card large">
-        <div class="icon">✦</div>
-        <h3>AI Lead Insights</h3>
-        <p>See quality scores, signals, keywords and opportunity indicators inside one clean dashboard.</p>
+      <div class="card">
+        <h3>03. Review and export</h3>
+        <p>Review matched leads, extract profile links, copy URLs, or export results for your next workflow.</p>
       </div>
     </div>
   </section>
 
-  <section class="workflow" id="workflow">
-    <div class="section-heading">
-      <span>Workflow</span>
-      <h2>From public audience to organized prospect list in minutes.</h2>
-    </div>
+  <section id="dashboard" class="section wrap">
+    <h2>A cleaner dashboard experience.</h2>
+    <p class="sub">A premium-looking workflow that keeps research, results, saved lists, credits, and affiliate activity in one place.</p>
 
-    <div class="steps">
-      <div class="step">
-        <strong>01</strong>
-        <h3>Add a public profile URL</h3>
-        <p>Start with one audience or unlock bulk URLs with paid plans.</p>
-      </div>
+    <div class="dashboard">
+      <aside class="sidebar">
+        <div class="sideitem active">Overview</div>
+        <div class="sideitem">New Analysis</div>
+        <div class="sideitem">Results</div>
+        <div class="sideitem">Open Links</div>
+        <div class="sideitem">Affiliate</div>
+        <div class="sideitem">Account</div>
+      </aside>
 
-      <div class="step">
-        <strong>02</strong>
-        <h3>Enter target leads</h3>
-        <p>Tell Qevanta what kind of leads you want to find.</p>
-      </div>
+      <div class="screen">
+        <div class="screen-top">
+          <div>
+            <h3>Campaign Overview</h3>
+            <p class="sub">Example of how Qevanta keeps lead research structured.</p>
+          </div>
+          <span class="pill">Active</span>
+        </div>
 
-      <div class="step">
-        <strong>03</strong>
-        <h3>Analyze signals</h3>
-        <p>Qevanta scans public bio signals, keywords and profile indicators.</p>
-      </div>
-
-      <div class="step">
-        <strong>04</strong>
-        <h3>Export and act</h3>
-        <p>Export leads, open profiles, save projects or deliver results to clients.</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Campaign</th>
+              <th>Audience</th>
+              <th>Status</th>
+              <th>Credits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Agency Partners</td>
+              <td>Public profiles</td>
+              <td><span class="pill">Ready</span></td>
+              <td>42</td>
+            </tr>
+            <tr>
+              <td>Local Contractors</td>
+              <td>Niche followers</td>
+              <td><span class="pill">Saved</span></td>
+              <td>18</td>
+            </tr>
+            <tr>
+              <td>Consultant Leads</td>
+              <td>Manual review</td>
+              <td><span class="pill">Review</span></td>
+              <td>25</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
-  <section class="pricing" id="pricing">
-    <div class="section-heading">
-      <span>Pricing</span>
-      <h2>Start free. Upgrade when Qevanta starts finding real opportunities.</h2>
-      <p>Plans are designed to create value fast without overwhelming new users.</p>
-    </div>
+  <section id="pricing" class="section wrap">
+    <h2>Simple plans for launch.</h2>
+    <p class="sub">
+      Start free, then upgrade when you need more credits, bulk workflows, faster controls, and larger link-opening limits.
+    </p>
 
-    <div class="pricing-grid">
-      <div class="price-card">
-        <h3>Trial</h3>
-        <h2>Free</h2>
-        <p>3 days access</p>
-        <ul>
-          <li>50 profiles total</li>
-          <li>5 visible leads</li>
-          <li>Locked lead preview</li>
-          <li>No export</li>
-        </ul>
-        <a>Try Qevanta</a>
-      </div>
-
-      <div class="price-card">
+    <div class="grid pricing">
+      <div class="card price">
         <h3>Free</h3>
-        <h2>$0</h2>
-        <p>Forever</p>
+        <div class="amount">$0</div>
+        <p>For testing Qevanta.</p>
         <ul>
-          <li>100 profiles / month</li>
-          <li>10 visible leads</li>
-          <li>Single URL only</li>
-          <li>5 open links</li>
+          <li>100 monthly credits</li>
+          <li>Basic lead research</li>
+          <li>Limited visible leads</li>
+          <li>Email account access</li>
         </ul>
-        <a>Explore Free</a>
+        <button class="btn secondary" onclick="startPlan('free')">Start Free</button>
       </div>
 
-      <div class="price-card">
-        <h3>Starter</h3>
-        <h2>$29</h2>
-        <p>per month</p>
-        <ul>
-          <li>3,000 profiles / month</li>
-          <li>Bulk URL access</li>
-          <li>CSV export</li>
-          <li>10 open tabs</li>
-        </ul>
-        <a>Start Growing</a>
-      </div>
-
-      <div class="price-card popular">
-        <div class="ribbon">Most Popular</div>
+      <div class="card price popular">
+        <span class="pill">Most Popular</span>
         <h3>Pro</h3>
-        <h2>$69</h2>
-        <p>per month</p>
+        <div class="amount">$29</div>
+        <p>For active prospecting.</p>
         <ul>
-          <li>10,000 profiles / month</li>
-          <li>Country / state / city filters</li>
-          <li>CSV + Excel export</li>
-          <li>AI lead insights</li>
-          <li>25 open tabs</li>
+          <li>10,000 monthly credits</li>
+          <li>Bulk workflow access</li>
+          <li>Advanced filters</li>
+          <li>Export tools</li>
         </ul>
-        <a>Upgrade to Pro</a>
+        <button class="btn" onclick="startPlan('pro')">Choose Pro</button>
       </div>
 
-      <div class="price-card agency">
-        <div class="ribbon gold">Best Value</div>
+      <div class="card price">
         <h3>Agency</h3>
-        <h2>$149</h2>
-        <p>per month</p>
+        <div class="amount">$79</div>
+        <p>For teams and operators.</p>
         <ul>
-          <li>Unlimited followers / following</li>
-          <li>Unlimited projects</li>
-          <li>Unlimited exports</li>
-          <li>Priority features</li>
-          <li>50 open tabs</li>
+          <li>High-volume access</li>
+          <li>Larger opening limits</li>
+          <li>Agency workflows</li>
+          <li>Affiliate support</li>
         </ul>
-        <a>Scale With Agency</a>
+        <button class="btn secondary" onclick="startPlan('agency')">Choose Agency</button>
       </div>
     </div>
   </section>
 
-  <section class="conversion">
-    <div>
-      <h2>Found leads are powerful. Locked leads create urgency.</h2>
-      <p>
-        Trial and free users see limited results first — enough to understand
-        the value, but with strong upgrade motivation when Qevanta finds more.
-      </p>
-    </div>
+  <section id="affiliate" class="section wrap">
+    <h2>Built-in affiliate foundation.</h2>
+    <p class="sub">
+      Partners can share a code, customers can apply it, and referral records can later connect with Stripe payment events.
+    </p>
 
-    <div class="unlock-box">
-      <h4>Lead Discovery Preview</h4>
-      <div class="unlock-row"><span>Found leads</span><b>84</b></div>
-      <div class="unlock-row"><span>Visible</span><b>10</b></div>
-      <div class="unlock-row locked"><span>Locked</span><b>74 🔒</b></div>
-      <button>Unlock All Leads</button>
-    </div>
-  </section>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Apply Referral Code</h3>
+        <p>Enter a referral code before choosing a plan.</p>
 
-  <section class="policies" id="policies">
-    <div class="policy-card">
-      <h3>Privacy Policy</h3>
-      <p>
-        Qevanta analyzes publicly available information only. We do not store
-        social media passwords or private account credentials. Users are
-        responsible for complying with applicable platform rules and local laws.
-      </p>
-    </div>
+        <div class="refbox">
+          <input id="referralCode" placeholder="Enter referral code">
+          <button class="btn" onclick="applyReferral()">Apply</button>
+        </div>
 
-    <div class="policy-card">
-      <h3>Terms of Service</h3>
-      <p>
-        By using Qevanta, you agree to use the product responsibly for lawful
-        business research, lead organization and prospecting purposes.
-      </p>
-    </div>
+        <div id="refStatus" class="status"></div>
+      </div>
 
-    <div class="policy-card">
-      <h3>Refund Policy</h3>
-      <p>
-        Refund requests may be reviewed within 7 days of purchase. Subscription
-        cancellations stop future billing but do not automatically refund past usage.
-      </p>
+      <div class="card">
+        <h3>Become an Affiliate</h3>
+        <p>
+          Promote Qevanta to agencies, freelancers, and growth teams.
+          Affiliates can earn commission when referred users become paid customers.
+        </p>
+
+        <ul>
+          <li>Referral code system</li>
+          <li>Dashboard-ready tracking</li>
+          <li>Commission logic for paid plans</li>
+          <li>Manual approval before launch</li>
+        </ul>
+
+        <a class="btn secondary" href="#contact">Contact Us</a>
+      </div>
     </div>
   </section>
 
-  <section class="faq" id="faq">
-    <div class="section-heading">
-      <span>FAQ</span>
-      <h2>Questions agencies ask before upgrading.</h2>
-    </div>
+  <section class="section wrap">
+    <h2>What early users are saying.</h2>
 
-    <div class="faq-list">
+    <div class="grid testimonials">
+      <div class="card">
+        <p class="quote">“Qevanta makes lead research feel structured instead of messy. The workflow is simple and practical.”</p>
+        <div class="avatar"><div>A</div><span>Agency Founder</span></div>
+      </div>
+
+      <div class="card">
+        <p class="quote">“The credit system makes it easy to control usage while still giving users enough room to test.”</p>
+        <div class="avatar"><div>M</div><span>Marketing Operator</span></div>
+      </div>
+
+      <div class="card">
+        <p class="quote">“A lightweight prospecting tool that feels useful for freelancers and small growth teams.”</p>
+        <div class="avatar"><div>S</div><span>Sales Consultant</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section wrap">
+    <h2>Contact Qevanta</h2>
+    <p class="sub">Have a support question, affiliate request, or partnership idea? Send us a message.</p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Support</h3>
+        <p>Email us for account help, billing questions, affiliate requests, or product feedback.</p>
+        <p><b>Email:</b> support@qevanta.com</p>
+        <p class="sub">Temporary launch note: email address can be updated after custom domain setup.</p>
+      </div>
+
+      <div class="card">
+        <h3>Launch Roadmap</h3>
+        <ul>
+          <li>Email authentication and SMTP</li>
+          <li>Referral and affiliate tracking</li>
+          <li>Website polish and policy pages</li>
+          <li>Stripe billing integration</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section wrap faq">
+    <h2>Frequently asked questions.</h2>
+
+    <div class="grid cols-2">
       <details open>
-        <summary>Is Qevanta for agencies?</summary>
-        <p>Yes. Qevanta is built for agencies, freelancers, growth teams and businesses that need faster prospecting workflows.</p>
+        <summary>Does Qevanta collect private data?</summary>
+        <p>No. Qevanta is designed for public audience research workflows only.</p>
       </details>
 
       <details>
-        <summary>Can I export leads?</summary>
-        <p>Yes. CSV export is available on Starter and above. Excel export is available on Pro and Agency.</p>
+        <summary>How do credits work?</summary>
+        <p>Credits control monthly usage based on the user’s plan and account status.</p>
       </details>
 
       <details>
-        <summary>Can I use location filters?</summary>
-        <p>Country, state and city targeting are available on Pro and Agency plans.</p>
+        <summary>Is the affiliate system ready?</summary>
+        <p>The referral foundation is ready. Commission updates will connect with Stripe payment events later.</p>
       </details>
 
       <details>
-        <summary>Is there a free plan?</summary>
-        <p>Yes. Qevanta includes a limited free plan so users can test the system before upgrading.</p>
+        <summary>Can I start without a paid plan?</summary>
+        <p>Yes. The Free plan gives users a limited monthly allowance to test Qevanta.</p>
       </details>
     </div>
   </section>
 
-  <section class="final-cta">
-    <h2>Ready to turn audiences into opportunities?</h2>
-    <p>Start with Qevanta free, then upgrade when your lead discovery workflow starts growing.</p>
-    <a href="#pricing">View Plans</a>
+  <section class="section wrap">
+    <div class="card final-cta">
+      <h2>Ready to build cleaner lead lists?</h2>
+      <p class="sub">Start with the free plan and upgrade when your workflow needs more volume.</p>
+      <a class="btn" href="#pricing">Get Started</a>
+    </div>
   </section>
 
-  <footer>
-    <div class="footer-brand">
-      <div class="brand-mark">Q</div>
-      <div>
-        <h3>Qevanta</h3>
-        <p>AI Powered Lead Intelligence Platform</p>
-      </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>© 2026 Qevanta. All rights reserved.</div>
+    <div>
+      <a href="privacy.html">Privacy Policy</a> ·
+      <a href="terms.html">Terms</a> ·
+      <a href="refund.html">Refund Policy</a> ·
+      <a href="reset-password.html">Reset Password</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal" id="affiliateModal">
+  <div class="modalbox">
+    <button class="close" onclick="closeModal('affiliateModal')">×</button>
+    <h2>Affiliate Center</h2>
+    <p>Your referral code</p>
+
+    <div class="refbox">
+      <input id="myCode" value="QEVA-PARTNER-2026" readonly>
+      <button class="btn" onclick="copyCode()">Copy</button>
     </div>
 
-    <p>© 2026 Qevanta. All rights reserved.</p>
-  </footer>
+    <table class="table">
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Total referrals</td><td>24</td></tr>
+      <tr><td>Pending commission</td><td>$348.00</td></tr>
+      <tr><td>Paid commission</td><td>$920.00</td></tr>
+    </table>
+  </div>
+</div>
 
+<script src="script.js"></script>
 </body>
 </html>
