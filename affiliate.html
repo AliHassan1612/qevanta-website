@@ -25,8 +25,9 @@
 <li>Payment automation after Stripe integration</li>
 </ul>
 
-<form action="https://formspree.io/f/xykqwrzy" method="POST" style="margin-top:28px">
-  <input type="hidden" name="_redirect" value="https://qevanta.site/thanks.html">
+<iframe name="qevantaAffiliateFrame" style="display:none;"></iframe>
+
+<form id="qevantaAffiliateForm" action="https://formspree.io/f/xykqwrzy" method="POST" target="qevantaAffiliateFrame" onsubmit="return showAffiliateSuccess();" style="margin-top:28px">
 <input type="hidden" name="form_type" value="Affiliate Application">
 
 <label>Full Name</label>
@@ -56,12 +57,34 @@
 <label>Why do you want to promote Qevanta?</label>
 <textarea name="message" rows="6" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
 
-<button class="cta" type="submit">Submit Application</button>
+<button id="affiliateSubmitBtn" class="cta" type="submit">Submit Application</button>
+<p id="affiliateMsg" style="margin-top:16px;color:#9ee7bd"></p>
 </form>
 
 <br>
 <p>or email us directly at <b>inquiries.qevanta@gmail.com</b></p>
 </div>
 </main>
+
+<script>
+function showAffiliateSuccess(){
+  const form = document.getElementById("qevantaAffiliateForm");
+  const msg = document.getElementById("affiliateMsg");
+  const btn = document.getElementById("affiliateSubmitBtn");
+
+  msg.textContent = "Submitting...";
+  btn.textContent = "Submitting...";
+  btn.disabled = true;
+
+  setTimeout(function(){
+    form.reset();
+    msg.textContent = "Application submitted successfully. We'll review it soon.";
+    btn.textContent = "Submit Application";
+    btn.disabled = false;
+  }, 1600);
+
+  return true;
+}
+</script>
 </body>
 </html>
