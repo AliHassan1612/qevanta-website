@@ -37,7 +37,7 @@
     <button class="nav" data-view="users">Users</button>
     <button class="nav" data-view="referrals">Referrals</button>
     <button class="nav" data-view="contact">Contact</button>
-<button class="nav" data-view="affiliates">Affiliates</button>
+    <button class="nav" data-view="affiliates">Affiliates</button>
     <button class="nav" data-view="settings">Settings</button>
 
     <button id="logoutBtn" class="logout">Logout</button>
@@ -84,6 +84,7 @@
                 <th>Credits</th>
                 <th>Referral</th>
                 <th>Joined</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody id="usersTable"></tbody>
@@ -100,22 +101,23 @@
       </div>
     </section>
 
-    <section id="settings" class="view hidden">
-      <section id="contact" class="view hidden">
-  <div class="panel">
-    <h2>Contact Messages</h2>
-    <p>Messages submitted from the Qevanta contact page.</p>
-    <div id="contactMessages" class="list"></div>
-  </div>
-</section>
+    <section id="contact" class="view hidden">
+      <div class="panel">
+        <h2>Contact Messages</h2>
+        <p>Messages submitted from the Qevanta contact page.</p>
+        <div id="contactMessages" class="list"></div>
+      </div>
+    </section>
 
-<section id="affiliates" class="view hidden">
-  <div class="panel">
-    <h2>Affiliate Applications</h2>
-    <p>Affiliate applications submitted from the Qevanta affiliate page.</p>
-    <div id="affiliateMessages" class="list"></div>
-  </div>
-</section>
+    <section id="affiliates" class="view hidden">
+      <div class="panel">
+        <h2>Affiliate Applications</h2>
+        <p>Affiliate applications submitted from the Qevanta affiliate page.</p>
+        <div id="affiliateMessages" class="list"></div>
+      </div>
+    </section>
+
+    <section id="settings" class="view hidden">
       <div class="panel">
         <h2>Settings</h2>
         <p>Admin settings and production controls will be expanded after Stripe integration.</p>
@@ -128,8 +130,8 @@
   </main>
 </div>
 
-<script src="supabase.js?v=3"></script>
-<script src="admin.js?v=3"></script>
-<script src="auth.js?v=3"></script>
+<script src="supabase.js?v=4"></script>
+<script src="admin.js?v=4"></script>
+<script src="auth.js?v=4"></script>
 </body>
 </html>
