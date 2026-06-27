@@ -16,14 +16,50 @@
 <main class="section wrap">
 <div class="value-card" style="max-width:900px;margin:auto">
 <h1 style="font-size:46px;margin-top:0">Become a Qevanta Affiliate</h1>
-<p>Promote Qevanta to agencies, freelancers, marketers, consultants, and growth teams.</p>
+<p>Promote Qevanta to agencies, freelancers, marketers, consultants, and growth teams. Apply below and we’ll review your profile.</p>
+
 <ul>
 <li>Referral code tracking</li>
 <li>Commission-ready structure</li>
 <li>Dashboard tracking after approval</li>
 <li>Payment automation after Stripe integration</li>
 </ul>
-<p><b>Apply:</b> inquiries.qevanta@gmail.com</p>
+
+<form action="https://formspree.io/f/xykqwnzy" method="POST" style="margin-top:28px">
+<input type="hidden" name="form_type" value="Affiliate Application">
+
+<label>Full Name</label>
+<input type="text" name="name" required style="width:100%;padding:14px;margin:8px 0 18px;">
+
+<label>Email Address</label>
+<input type="email" name="email" required style="width:100%;padding:14px;margin:8px 0 18px;">
+
+<label>Website / Social Profile</label>
+<input type="url" name="profile" placeholder="https://instagram.com/yourpage" required style="width:100%;padding:14px;margin:8px 0 18px;">
+
+<label>Audience Size</label>
+<input type="text" name="audience_size" placeholder="Example: 5k Instagram followers" style="width:100%;padding:14px;margin:8px 0 18px;">
+
+<label>Promotion Method</label>
+<select name="promotion_method" required style="width:100%;padding:14px;margin:8px 0 18px;">
+<option value="">Select one</option>
+<option>Instagram</option>
+<option>TikTok</option>
+<option>YouTube</option>
+<option>Email List</option>
+<option>Blog / Website</option>
+<option>Agency Network</option>
+<option>Other</option>
+</select>
+
+<label>Why do you want to promote Qevanta?</label>
+<textarea name="message" rows="6" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
+
+<button class="cta" type="submit">Submit Application</button>
+</form>
+
+<br>
+<p>or email us directly at <b>inquiries.qevanta@gmail.com</b></p>
 </div>
 </main>
 </body>
