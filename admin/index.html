@@ -1,1 +1,118 @@
-1
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qevanta Admin</title>
+<link rel="stylesheet" href="admin.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<div id="loginScreen" class="login">
+  <div class="login-card">
+    <div class="logo">Q</div>
+    <h1>Qevanta Admin</h1>
+    <p>Login with your approved admin account.</p>
+
+    <input id="adminEmail" type="email" placeholder="Admin email">
+    <input id="adminPassword" type="password" placeholder="Password">
+
+    <button id="adminLoginBtn">Login</button>
+    <small id="loginMsg"></small>
+  </div>
+</div>
+
+<div id="adminApp" class="app hidden">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">Q</div>
+      <div>
+        <b>Qevanta</b>
+        <small>Admin Panel</small>
+      </div>
+    </div>
+
+    <button class="nav active" data-view="dashboard">Dashboard</button>
+    <button class="nav" data-view="users">Users</button>
+    <button class="nav" data-view="referrals">Referrals</button>
+    <button class="nav" data-view="settings">Settings</button>
+
+    <button id="logoutBtn" class="logout">Logout</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSub">Qevanta business overview and user management.</p>
+      </div>
+      <button id="refreshBtn">Refresh</button>
+    </header>
+
+    <section id="dashboard" class="view">
+      <div class="cards">
+        <div class="card"><span>Total Users</span><b id="totalUsers">0</b></div>
+        <div class="card"><span>Free Users</span><b id="freeUsers">0</b></div>
+        <div class="card"><span>Starter Users</span><b id="starterUsers">0</b></div>
+        <div class="card"><span>Pro Users</span><b id="proUsers">0</b></div>
+        <div class="card"><span>Agency Users</span><b id="agencyUsers">0</b></div>
+        <div class="card"><span>Admins</span><b id="adminCount">0</b></div>
+      </div>
+    </section>
+
+    <section id="users" class="view hidden">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Users</h2>
+            <p>View Qevanta users, plans, credits, and referral codes.</p>
+          </div>
+          <input id="userSearch" placeholder="Search users...">
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Plan</th>
+                <th>Credits</th>
+                <th>Referral</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody id="usersTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="referrals" class="view hidden">
+      <div class="panel">
+        <h2>Referrals</h2>
+        <p>Referral tracking overview. Full commission tracking will connect after Stripe.</p>
+        <div id="referralList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="settings" class="view hidden">
+      <div class="panel">
+        <h2>Settings</h2>
+        <p>Admin settings and production controls will be expanded after Stripe integration.</p>
+        <div class="setting-row"><span>Free Credits</span><b>100</b></div>
+        <div class="setting-row"><span>Starter Credits</span><b>3000</b></div>
+        <div class="setting-row"><span>Pro Credits</span><b>10000</b></div>
+        <div class="setting-row"><span>Agency Credits</span><b>Unlimited</b></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
