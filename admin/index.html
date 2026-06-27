@@ -38,6 +38,7 @@
     <button class="nav" data-view="referrals">Referrals</button>
     <button class="nav" data-view="contact">Contact</button>
     <button class="nav" data-view="affiliates">Affiliates</button>
+    <button class="nav" data-view="analytics">Analytics</button>
     <button class="nav" data-view="settings">Settings</button>
 
     <button id="logoutBtn" class="logout">Logout</button>
@@ -116,7 +117,21 @@
         <div id="affiliateMessages" class="list"></div>
       </div>
     </section>
+<section id="analytics" class="view hidden">
+  <div class="panel">
+    <h2>Analytics</h2>
+    <p>Qevanta usage and growth overview.</p>
 
+    <div class="cards" style="margin-top:20px">
+      <div class="card"><span>Signups Today</span><b id="signupsToday">0</b></div>
+      <div class="card"><span>Signups 7 Days</span><b id="signups7Days">0</b></div>
+      <div class="card"><span>Total Messages</span><b id="messagesTotal">0</b></div>
+      <div class="card"><span>Contact Messages</span><b id="contactMessagesCount">0</b></div>
+      <div class="card"><span>Affiliate Apps</span><b id="affiliateAppsCount">0</b></div>
+      <div class="card"><span>Credits Used</span><b id="creditsUsedTotal">0</b></div>
+    </div>
+  </div>
+</section>
     <section id="settings" class="view hidden">
       <div class="panel">
         <h2>Settings</h2>
