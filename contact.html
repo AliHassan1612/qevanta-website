@@ -14,7 +14,6 @@
 </header>
 
 <main class="section wrap">
-
 <div class="value-card" style="max-width:900px;margin:auto">
 
 <h1 style="font-size:46px;margin-top:0">Contact Qevanta</h1>
@@ -24,47 +23,66 @@ Need help with your account, billing, referrals, or the extension?
 Send us a message and we'll get back to you within 24 hours.
 </p>
 
-<form action="https://formspree.io/f/xykqwrzy" method="POST">
-  <input type="hidden" name="_redirect" value="https://qevanta.site/thanks.html">
+<form id="qevantaContactForm" action="https://formspree.io/f/xykqwrzy" method="POST">
 
 <label>Your Name</label>
-<input
-type="text"
-name="name"
-required
-style="width:100%;padding:14px;margin:8px 0 20px;">
+<input type="text" name="name" required style="width:100%;padding:14px;margin:8px 0 20px;">
 
 <label>Email Address</label>
-<input
-type="email"
-name="email"
-required
-style="width:100%;padding:14px;margin:8px 0 20px;">
+<input type="email" name="email" required style="width:100%;padding:14px;margin:8px 0 20px;">
 
 <label>Message</label>
-<textarea
-name="message"
-rows="6"
-required
-style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
+<textarea name="message" rows="6" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
 
-<button class="cta" type="submit">
-Send Message
-</button>
+<button id="contactSubmitBtn" class="cta" type="submit">Send Message</button>
+
+<p id="formMsg" style="margin-top:16px;color:#9ee7bd"></p>
 
 </form>
 
 <br><br>
 
-<p>
-or email us directly at
-
-<b>inquiries.qevanta@gmail.com</b>
-
-</p>
+<p>or email us directly at <b>inquiries.qevanta@gmail.com</b></p>
 
 </div>
-
 </main>
+
+<script>
+const form = document.getElementById("qevantaContactForm");
+const msg = document.getElementById("formMsg");
+const btn = document.getElementById("contactSubmitBtn");
+
+form.addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  msg.style.color = "#9ee7bd";
+  msg.textContent = "Sending...";
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+
+  try{
+    const res = await fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { "Accept": "application/json" }
+    });
+
+    if(res.ok){
+      form.reset();
+      msg.style.color = "#9ee7bd";
+      msg.textContent = "Message sent successfully. We'll get back to you soon.";
+    }else{
+      msg.style.color = "#ffb4b4";
+      msg.textContent = "Message failed. Please email us at inquiries.qevanta@gmail.com.";
+    }
+  }catch(err){
+    msg.style.color = "#ffb4b4";
+    msg.textContent = "Message failed. Please email us at inquiries.qevanta@gmail.com.";
+  }
+
+  btn.disabled = false;
+  btn.textContent = "Send Message";
+});
+</script>
 </body>
 </html>
