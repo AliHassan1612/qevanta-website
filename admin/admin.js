@@ -50,7 +50,7 @@ async function loadAdminData(){
 }
 
 async function loadOverview(){
-  const { data, error } = await supabase.rpc("qevanta_admin_overview");
+  const { data, error } = await qevantaDb.rpc("qevanta_admin_overview");
 
   if(error){
     console.error(error);
@@ -68,7 +68,7 @@ async function loadOverview(){
 }
 
 async function loadUsers(){
-  const { data, error } = await supabase.rpc("qevanta_admin_users");
+  const { data, error } = await qevantaDb.rpc("qevanta_admin_users");
 
   if(error){
     console.error(error);
