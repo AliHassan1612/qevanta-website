@@ -40,6 +40,7 @@ function showView(name){
     referrals:["Referrals","Referral code and referred-user overview."],
     contact:["Contact","Messages submitted from the contact page."],
     affiliates:["Affiliates","Affiliate applications submitted from the affiliate page."],
+    analytics:["Analytics","Qevanta usage and growth overview."],
     settings:["Settings","Plan limits and admin controls."]
   };
 
@@ -51,8 +52,8 @@ async function loadAdminData(){
   await loadOverview();
   await loadUsers();
   await loadMessages();
+  await loadAnalytics();
 }
-
 async function loadOverview(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_overview");
   if(error){console.error(error);return;}
@@ -92,7 +93,23 @@ async function loadMessages(){
   renderContactMessages();
   renderAffiliateMessages();
 }
+async function loadAnalytics(){
+  const { data, error } = await qevantaDb.rpc("qevanta_admin_analytics");
 
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  const a = data || {};
+
+  $("signupsToday").textContent = a.signups_today || 0;
+  $("signups7Days").textContent = a.signups_7_days || 0;
+  $("messagesTotal").textContent = a.messages_total || 0;
+  $("contactMessagesCount").textContent = a.contact_messages || 0;
+  $("affiliateAppsCount").textContent = a.affiliate_applications || 0;
+  $("creditsUsedTotal").textContent = a.total_credits_used || 0;
+}
 function renderUsers(){
   const q = $("userSearch")?.value?.toLowerCase() || "";
 
