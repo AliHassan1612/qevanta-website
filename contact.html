@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Contact — Qevanta</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <header class="nav">
@@ -22,13 +23,13 @@
 
 <form id="qevantaContactForm" action="https://formspree.io/f/xykqwrzy" method="POST" target="qevantaHiddenFrame" onsubmit="return showQevantaSuccess();">
 <label>Your Name</label>
-<input type="text" name="name" required style="width:100%;padding:14px;margin:8px 0 20px;">
+<input id="contactName" type="text" name="name" required style="width:100%;padding:14px;margin:8px 0 20px;">
 
 <label>Email Address</label>
-<input type="email" name="email" required style="width:100%;padding:14px;margin:8px 0 20px;">
+<input id="contactEmail" type="email" name="email" required style="width:100%;padding:14px;margin:8px 0 20px;">
 
 <label>Message</label>
-<textarea name="message" rows="6" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
+<textarea id="contactMessage" name="message" rows="6" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
 
 <button id="contactSubmitBtn" class="cta" type="submit">Send Message</button>
 <p id="formMsg" style="margin-top:16px;color:#9ee7bd"></p>
@@ -40,6 +41,10 @@
 </main>
 
 <script>
+const QEVANTA_SUPABASE_URL = "https://mfgmkvmawhfdsigawrpn.supabase.co";
+const QEVANTA_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mZ21rdm1hd2hmZHNpZ2F3cnBuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5Mjk5NjYsImV4cCI6MjA5NzUwNTk2Nn0.6znoxf1v7SDdvBvjMwgdDTjQt7dpsI2qbmvVI1BPN5c";
+const qevantaDb = window.supabase.createClient(QEVANTA_SUPABASE_URL, QEVANTA_SUPABASE_ANON_KEY);
+
 function showQevantaSuccess(){
   const form = document.getElementById("qevantaContactForm");
   const msg = document.getElementById("formMsg");
@@ -48,6 +53,20 @@ function showQevantaSuccess(){
   msg.textContent = "Sending...";
   btn.textContent = "Sending...";
   btn.disabled = true;
+
+  const name = document.getElementById("contactName").value.trim();
+  const email = document.getElementById("contactEmail").value.trim();
+  const message = document.getElementById("contactMessage").value.trim();
+
+  qevantaDb.rpc("qevanta_save_contact_message", {
+    p_type: "contact",
+    p_name: name,
+    p_email: email,
+    p_profile: null,
+    p_audience_size: null,
+    p_promotion_method: null,
+    p_message: message
+  });
 
   setTimeout(function(){
     form.reset();
