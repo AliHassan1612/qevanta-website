@@ -28,7 +28,7 @@
 
 <iframe name="qevantaAffiliateFrame" style="display:none;"></iframe>
 
-<form id="qevantaAffiliateForm" action="https://formspree.io/f/xykqwrzy" method="POST" target="qevantaAffiliateFrame" onsubmit="return showAffiliateSuccess();" style="margin-top:28px">
+<form id="qevantaAffiliateForm" action="https://formspree.io/f/xykqwrzy" method="POST" target="qevantaAffiliateFrame" onsubmit="event.preventDefault(); showAffiliateSuccess(); return false;" style="margin-top:28px">
 <input type="hidden" name="form_type" value="Affiliate Application">
 
 <label>Full Name</label>
@@ -72,7 +72,7 @@ const QEVANTA_SUPABASE_URL = "https://mfgmkvmawhfdsigawrpn.supabase.co";
 const QEVANTA_SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_KEY_HERE";
 const qevantaDb = window.supabase.createClient(QEVANTA_SUPABASE_URL, QEVANTA_SUPABASE_ANON_KEY);
 
-function showAffiliateSuccess(){
+async function showAffiliateSuccess(){
   const form = document.getElementById("qevantaAffiliateForm");
   const msg = document.getElementById("affiliateMsg");
   const btn = document.getElementById("affiliateSubmitBtn");
@@ -81,7 +81,7 @@ function showAffiliateSuccess(){
   btn.textContent = "Submitting...";
   btn.disabled = true;
 
-  qevantaDb.rpc("qevanta_save_contact_message", {
+  Fix affiliate Supabase save
     p_type: "affiliate",
     p_name: document.getElementById("affiliateName").value.trim(),
     p_email: document.getElementById("affiliateEmail").value.trim(),
