@@ -36,6 +36,8 @@
     <button class="nav active" data-view="dashboard">Dashboard</button>
     <button class="nav" data-view="users">Users</button>
     <button class="nav" data-view="referrals">Referrals</button>
+    <button class="nav" data-view="contact">Contact</button>
+<button class="nav" data-view="affiliates">Affiliates</button>
     <button class="nav" data-view="settings">Settings</button>
 
     <button id="logoutBtn" class="logout">Logout</button>
@@ -99,6 +101,21 @@
     </section>
 
     <section id="settings" class="view hidden">
+      <section id="contact" class="view hidden">
+  <div class="panel">
+    <h2>Contact Messages</h2>
+    <p>Messages submitted from the Qevanta contact page.</p>
+    <div id="contactMessages" class="list"></div>
+  </div>
+</section>
+
+<section id="affiliates" class="view hidden">
+  <div class="panel">
+    <h2>Affiliate Applications</h2>
+    <p>Affiliate applications submitted from the Qevanta affiliate page.</p>
+    <div id="affiliateMessages" class="list"></div>
+  </div>
+</section>
       <div class="panel">
         <h2>Settings</h2>
         <p>Admin settings and production controls will be expanded after Stripe integration.</p>
