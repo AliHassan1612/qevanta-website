@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Affiliates — Qevanta</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <header class="nav">
@@ -31,19 +32,19 @@
 <input type="hidden" name="form_type" value="Affiliate Application">
 
 <label>Full Name</label>
-<input type="text" name="name" required style="width:100%;padding:14px;margin:8px 0 18px;">
+<input id="affiliateName" type="text" name="name" required style="width:100%;padding:14px;margin:8px 0 18px;">
 
 <label>Email Address</label>
-<input type="email" name="email" required style="width:100%;padding:14px;margin:8px 0 18px;">
+<input id="affiliateEmail" type="email" name="email" required style="width:100%;padding:14px;margin:8px 0 18px;">
 
 <label>Website / Social Profile</label>
-<input type="url" name="profile" placeholder="https://instagram.com/yourpage" required style="width:100%;padding:14px;margin:8px 0 18px;">
+<input id="affiliateProfile" type="url" name="profile" placeholder="https://instagram.com/yourpage" required style="width:100%;padding:14px;margin:8px 0 18px;">
 
 <label>Audience Size</label>
-<input type="text" name="audience_size" placeholder="Example: 5k Instagram followers" style="width:100%;padding:14px;margin:8px 0 18px;">
+<input id="affiliateAudience" type="text" name="audience_size" placeholder="Example: 5k Instagram followers" style="width:100%;padding:14px;margin:8px 0 18px;">
 
 <label>Promotion Method</label>
-<select name="promotion_method" required style="width:100%;padding:14px;margin:8px 0 18px;">
+<select id="affiliateMethod" name="promotion_method" required style="width:100%;padding:14px;margin:8px 0 18px;">
 <option value="">Select one</option>
 <option>Instagram</option>
 <option>TikTok</option>
@@ -55,7 +56,7 @@
 </select>
 
 <label>Why do you want to promote Qevanta?</label>
-<textarea name="message" rows="6" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
+<textarea id="affiliateMessage" name="message" rows="6" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
 
 <button id="affiliateSubmitBtn" class="cta" type="submit">Submit Application</button>
 <p id="affiliateMsg" style="margin-top:16px;color:#9ee7bd"></p>
@@ -67,6 +68,10 @@
 </main>
 
 <script>
+const QEVANTA_SUPABASE_URL = "https://mfgmkvmawhfdsigawrpn.supabase.co";
+const QEVANTA_SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_KEY_HERE";
+const qevantaDb = window.supabase.createClient(QEVANTA_SUPABASE_URL, QEVANTA_SUPABASE_ANON_KEY);
+
 function showAffiliateSuccess(){
   const form = document.getElementById("qevantaAffiliateForm");
   const msg = document.getElementById("affiliateMsg");
@@ -75,6 +80,16 @@ function showAffiliateSuccess(){
   msg.textContent = "Submitting...";
   btn.textContent = "Submitting...";
   btn.disabled = true;
+
+  qevantaDb.rpc("qevanta_save_contact_message", {
+    p_type: "affiliate",
+    p_name: document.getElementById("affiliateName").value.trim(),
+    p_email: document.getElementById("affiliateEmail").value.trim(),
+    p_profile: document.getElementById("affiliateProfile").value.trim(),
+    p_audience_size: document.getElementById("affiliateAudience").value.trim(),
+    p_promotion_method: document.getElementById("affiliateMethod").value.trim(),
+    p_message: document.getElementById("affiliateMessage").value.trim()
+  });
 
   setTimeout(function(){
     form.reset();
