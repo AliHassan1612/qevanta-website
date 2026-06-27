@@ -48,7 +48,9 @@ function showView(name){
 }
 
 async function loadAdminData(){
-  await Promise.all([loadOverview(), loadUsers(), loadMessages()]);
+  await loadOverview();
+  await loadUsers();
+  await loadMessages();
 }
 
 async function loadOverview(){
