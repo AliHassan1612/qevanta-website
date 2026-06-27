@@ -39,6 +39,7 @@
     <button class="nav" data-view="contact">Contact</button>
     <button class="nav" data-view="affiliates">Affiliates</button>
     <button class="nav" data-view="analytics">Analytics</button>
+    <button class="nav" data-view="logs">Activity Logs</button>
     <button class="nav" data-view="settings">Settings</button>
 
     <button id="logoutBtn" class="logout">Logout</button>
@@ -130,6 +131,13 @@
       <div class="card"><span>Affiliate Apps</span><b id="affiliateAppsCount">0</b></div>
       <div class="card"><span>Credits Used</span><b id="creditsUsedTotal">0</b></div>
     </div>
+  </div>
+</section>
+    <section id="logs" class="view hidden">
+  <div class="panel">
+    <h2>Activity Logs</h2>
+    <p>Track important admin actions inside Qevanta.</p>
+    <div id="activityLogs" class="list"></div>
   </div>
 </section>
     <section id="settings" class="view hidden">
