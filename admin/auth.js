@@ -1,15 +1,15 @@
 async function checkAdminSession(){
-  const { data:{ session } } = await supabase.auth.getSession();
+  const { data:{ session } } = await qevantaDb.auth.getSession();
 
   if(!session){
     showLogin();
     return;
   }
 
-  const { data, error } = await supabase.rpc("qevanta_is_admin");
+  const { data, error } = await qevantaDb.rpc("qevanta_is_admin");
 
   if(error || data !== true){
-    await supabase.auth.signOut();
+    await qevantaDb.auth.signOut();
     showLogin("Access denied. This account is not an admin.");
     return;
   }
@@ -44,7 +44,7 @@ async function adminLogin(){
 
   msg.textContent = "Logging in...";
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { error } = await qevantaDb.auth.signInWithPassword({
     email,
     password
   });
@@ -58,7 +58,7 @@ async function adminLogin(){
 }
 
 async function adminLogout(){
-  await supabase.auth.signOut();
+  await qevantaDb.auth.signOut();
   location.reload();
 }
 
