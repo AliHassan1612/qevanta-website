@@ -81,7 +81,7 @@ async function showAffiliateSuccess(){
   btn.textContent = "Submitting...";
   btn.disabled = true;
 
-  Fix affiliate Supabase save
+  await qevantaDb.rpc("qevanta_save_contact_message", {
     p_type: "affiliate",
     p_name: document.getElementById("affiliateName").value.trim(),
     p_email: document.getElementById("affiliateEmail").value.trim(),
@@ -98,7 +98,7 @@ async function showAffiliateSuccess(){
     btn.disabled = false;
   }, 1600);
 
-  return true;
+  return false;
 }
 </script>
 </body>
