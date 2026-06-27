@@ -1,8 +1,7 @@
 let ADMIN_USERS = [];
+let ADMIN_MESSAGES = [];
 
-function $(id){
-  return document.getElementById(id);
-}
+function $(id){ return document.getElementById(id); }
 
 function esc(value){
   return String(value ?? "")
@@ -39,6 +38,8 @@ function showView(name){
     dashboard:["Dashboard","Qevanta business overview and user management."],
     users:["Users","Search and manage Qevanta accounts."],
     referrals:["Referrals","Referral code and referred-user overview."],
+    contact:["Contact","Messages submitted from the contact page."],
+    affiliates:["Affiliates","Affiliate applications submitted from the affiliate page."],
     settings:["Settings","Plan limits and admin controls."]
   };
 
@@ -47,7 +48,7 @@ function showView(name){
 }
 
 async function loadAdminData(){
-  await Promise.all([loadOverview(), loadUsers()]);
+  await Promise.all([loadOverview(), loadUsers(), loadMessages()]);
 }
 
 async function loadOverview(){
@@ -77,12 +78,24 @@ async function loadUsers(){
   renderReferrals();
 }
 
+async function loadMessages(){
+  const { data, error } = await qevantaDb.rpc("qevanta_admin_messages");
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  ADMIN_MESSAGES = data || [];
+  renderContactMessages();
+  renderAffiliateMessages();
+}
+
 function renderUsers(){
   const q = $("userSearch")?.value?.toLowerCase() || "";
 
   const filtered = ADMIN_USERS.filter(u=>{
-    const blob = [u.email,u.first_name,u.company_name,u.plan,u.referral_code,u.referred_by]
-      .join(" ").toLowerCase();
+    const blob = [u.email,u.first_name,u.company_name,u.plan,u.referral_code,u.referred_by].join(" ").toLowerCase();
     return !q || blob.includes(q);
   });
 
@@ -92,20 +105,14 @@ function renderUsers(){
   }
 
   $("usersTable").innerHTML = filtered.map(u=>{
-    const used = Number(u.credits_used || 0);
-    const monthly = u.credits_monthly ?? 0;
-
     return `
       <tr>
         <td>${esc(u.email)}</td>
         <td>${esc(u.first_name || "-")}</td>
         <td>${esc(u.company_name || "-")}</td>
         <td><span class="badge">${esc((u.plan || "FREE").toUpperCase())}</span></td>
-        <td>${esc(used)} / ${esc(monthly)}</td>
-        <td>
-          <b>${esc(u.referral_code || "-")}</b><br>
-          <small>By: ${esc(u.referred_by || "-")}</small>
-        </td>
+        <td>${esc(Number(u.credits_used || 0))} / ${esc(u.credits_monthly ?? 0)}</td>
+        <td><b>${esc(u.referral_code || "-")}</b><br><small>By: ${esc(u.referred_by || "-")}</small></td>
         <td>${esc(formatDate(u.created_at))}</td>
         <td>
           <button class="mini" onclick="quickPlan('${u.id}','FREE')">Free</button>
@@ -143,32 +150,21 @@ function getUser(userId){
 async function quickPlan(userId, plan){
   const u = getUser(userId);
   if(!u) return;
-
-  const monthly = planCredits(plan);
-  const used = Number(u.credits_used || 0);
-
   if(!confirm(`Change ${u.email} to ${plan}?`)) return;
-
-  await updateUser(userId, plan, monthly, used);
+  await updateUser(userId, plan, planCredits(plan), Number(u.credits_used || 0));
 }
 
 async function addCredits(userId, amount){
   const u = getUser(userId);
   if(!u) return;
-
-  const monthly = Number(u.credits_monthly || 0) + Number(amount || 0);
-
   if(!confirm(`Add ${amount} credits to ${u.email}?`)) return;
-
-  await updateUser(userId, u.plan || "FREE", monthly, Number(u.credits_used || 0));
+  await updateUser(userId, u.plan || "FREE", Number(u.credits_monthly || 0) + amount, Number(u.credits_used || 0));
 }
 
 async function resetUsed(userId){
   const u = getUser(userId);
   if(!u) return;
-
   if(!confirm(`Reset used credits for ${u.email}?`)) return;
-
   await updateUser(userId, u.plan || "FREE", Number(u.credits_monthly || 100), 0);
 }
 
@@ -187,14 +183,66 @@ function renderReferrals(){
 
     return `
       <div class="list-item">
-        <div>
-          <b>${esc(u.referral_code)}</b><br>
-          <small>${esc(u.email)}</small>
-        </div>
+        <div><b>${esc(u.referral_code)}</b><br><small>${esc(u.email)}</small></div>
         <span>${count} referrals</span>
       </div>
     `;
   }).join("");
+}
+
+function renderContactMessages(){
+  const messages = ADMIN_MESSAGES.filter(m=>m.type === "contact");
+
+  if(!messages.length){
+    $("contactMessages").innerHTML = `<div class="list-item">No contact messages yet.</div>`;
+    return;
+  }
+
+  $("contactMessages").innerHTML = messages.map(m=>`
+    <div class="list-item" style="display:block">
+      <b>${esc(m.name || "-")}</b> · ${esc(m.email || "-")}
+      <p>${esc(m.message || "-")}</p>
+      <small>Status: ${esc(m.status)} · ${esc(formatDate(m.created_at))}</small><br><br>
+      <button class="mini" onclick="updateMessageStatus('${m.id}','read')">Mark Read</button>
+      <button class="mini danger" onclick="updateMessageStatus('${m.id}','deleted')">Delete</button>
+    </div>
+  `).join("");
+}
+
+function renderAffiliateMessages(){
+  const messages = ADMIN_MESSAGES.filter(m=>m.type === "affiliate");
+
+  if(!messages.length){
+    $("affiliateMessages").innerHTML = `<div class="list-item">No affiliate applications yet.</div>`;
+    return;
+  }
+
+  $("affiliateMessages").innerHTML = messages.map(m=>`
+    <div class="list-item" style="display:block">
+      <b>${esc(m.name || "-")}</b> · ${esc(m.email || "-")}
+      <p><b>Profile:</b> ${esc(m.profile || "-")}</p>
+      <p><b>Audience:</b> ${esc(m.audience_size || "-")}</p>
+      <p><b>Method:</b> ${esc(m.promotion_method || "-")}</p>
+      <p>${esc(m.message || "-")}</p>
+      <small>Status: ${esc(m.status)} · ${esc(formatDate(m.created_at))}</small><br><br>
+      <button class="mini" onclick="updateMessageStatus('${m.id}','approved')">Approve</button>
+      <button class="mini danger" onclick="updateMessageStatus('${m.id}','rejected')">Reject</button>
+    </div>
+  `).join("");
+}
+
+async function updateMessageStatus(id, status){
+  const { error } = await qevantaDb.rpc("qevanta_admin_update_message_status", {
+    p_message_id:id,
+    p_status:status
+  });
+
+  if(error){
+    alert(error.message || "Status update failed.");
+    return;
+  }
+
+  await loadMessages();
 }
 
 document.querySelectorAll(".nav").forEach(btn=>{
