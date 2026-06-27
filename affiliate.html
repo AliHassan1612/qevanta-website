@@ -7,17 +7,32 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
 <header class="nav">
-<a class="brand" href="index.html"><div class="logo">Q</div><div><strong>Qevanta</strong><small>Audience Intelligence</small></div></a>
-<nav class="navlinks"><a href="index.html#features">Features</a><a href="index.html#pricing">Pricing</a><a href="contact.html">Contact</a></nav>
+<a class="brand" href="index.html">
+<div class="logo">Q</div>
+<div><strong>Qevanta</strong><small>Audience Intelligence</small></div>
+</a>
+
+<nav class="navlinks">
+<a href="index.html#features">Features</a>
+<a href="index.html#pricing">Pricing</a>
+<a href="contact.html">Contact</a>
+</nav>
+
 <a class="cta" href="index.html#pricing">Start Free</a>
 </header>
 
 <main class="section wrap">
 <div class="value-card" style="max-width:900px;margin:auto">
+
 <h1 style="font-size:46px;margin-top:0">Become a Qevanta Affiliate</h1>
-<p>Promote Qevanta to agencies, freelancers, marketers, consultants, and growth teams. Apply below and we’ll review your profile.</p>
+
+<p>
+Promote Qevanta to agencies, freelancers, marketers, consultants, and growth teams.
+Apply below and we’ll review your profile.
+</p>
 
 <ul>
 <li>Referral code tracking</li>
@@ -26,25 +41,22 @@
 <li>Payment automation after Stripe integration</li>
 </ul>
 
-<iframe name="qevantaAffiliateFrame" style="display:none;"></iframe>
-
-<form id="qevantaAffiliateForm" action="https://formspree.io/f/xykqwrzy" method="POST" target="qevantaAffiliateFrame" onsubmit="event.preventDefault(); showAffiliateSuccess(); return false;" style="margin-top:28px">
-<input type="hidden" name="form_type" value="Affiliate Application">
+<form id="qevantaAffiliateForm" style="margin-top:28px">
 
 <label>Full Name</label>
-<input id="affiliateName" type="text" name="name" required style="width:100%;padding:14px;margin:8px 0 18px;">
+<input id="affiliateName" type="text" required style="width:100%;padding:14px;margin:8px 0 18px;">
 
 <label>Email Address</label>
-<input id="affiliateEmail" type="email" name="email" required style="width:100%;padding:14px;margin:8px 0 18px;">
+<input id="affiliateEmail" type="email" required style="width:100%;padding:14px;margin:8px 0 18px;">
 
 <label>Website / Social Profile</label>
-<input id="affiliateProfile" type="url" name="profile" placeholder="https://instagram.com/yourpage" required style="width:100%;padding:14px;margin:8px 0 18px;">
+<input id="affiliateProfile" type="url" placeholder="https://instagram.com/yourpage" required style="width:100%;padding:14px;margin:8px 0 18px;">
 
 <label>Audience Size</label>
-<input id="affiliateAudience" type="text" name="audience_size" placeholder="Example: 5k Instagram followers" style="width:100%;padding:14px;margin:8px 0 18px;">
+<input id="affiliateAudience" type="text" placeholder="Example: 5k Instagram followers" style="width:100%;padding:14px;margin:8px 0 18px;">
 
 <label>Promotion Method</label>
-<select id="affiliateMethod" name="promotion_method" required style="width:100%;padding:14px;margin:8px 0 18px;">
+<select id="affiliateMethod" required style="width:100%;padding:14px;margin:8px 0 18px;">
 <option value="">Select one</option>
 <option>Instagram</option>
 <option>TikTok</option>
@@ -56,32 +68,42 @@
 </select>
 
 <label>Why do you want to promote Qevanta?</label>
-<textarea id="affiliateMessage" name="message" rows="6" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
+<textarea id="affiliateMessage" rows="6" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
 
 <button id="affiliateSubmitBtn" class="cta" type="submit">Submit Application</button>
 <p id="affiliateMsg" style="margin-top:16px;color:#9ee7bd"></p>
+
 </form>
 
 <br>
 <p>or email us directly at <b>inquiries.qevanta@gmail.com</b></p>
+
 </div>
 </main>
+
 <script>
 const QEVANTA_SUPABASE_URL = "https://mfgmkvmawhfdsigawrpn.supabase.co";
 const QEVANTA_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mZ21rdm1hd2hmZHNpZ2F3cnBuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5Mjk5NjYsImV4cCI6MjA5NzUwNTk2Nn0.6znoxf1v7SDdvBvjMwgdDTjQt7dpsI2qbmvVI1BPN5c
 ";
-const qevantaDb = window.supabase.createClient(QEVANTA_SUPABASE_URL, QEVANTA_SUPABASE_ANON_KEY);
 
-async function showAffiliateSuccess(){
-  const form = document.getElementById("qevantaAffiliateForm");
-  const msg = document.getElementById("affiliateMsg");
-  const btn = document.getElementById("affiliateSubmitBtn");
+const qevantaDb = window.supabase.createClient(
+  QEVANTA_SUPABASE_URL,
+  QEVANTA_SUPABASE_ANON_KEY
+);
 
-  msg.textContent = "Submitting...";
-  btn.textContent = "Submitting...";
-  btn.disabled = true;
+const affiliateForm = document.getElementById("qevantaAffiliateForm");
+const affiliateMsg = document.getElementById("affiliateMsg");
+const affiliateBtn = document.getElementById("affiliateSubmitBtn");
 
-  await qevantaDb.rpc("qevanta_save_contact_message", {
+affiliateForm.addEventListener("submit", async function(event){
+  event.preventDefault();
+
+  affiliateMsg.style.color = "#9ee7bd";
+  affiliateMsg.textContent = "Submitting...";
+  affiliateBtn.disabled = true;
+  affiliateBtn.textContent = "Submitting...";
+
+  const { error } = await qevantaDb.rpc("qevanta_save_contact_message", {
     p_type: "affiliate",
     p_name: document.getElementById("affiliateName").value.trim(),
     p_email: document.getElementById("affiliateEmail").value.trim(),
@@ -91,13 +113,20 @@ async function showAffiliateSuccess(){
     p_message: document.getElementById("affiliateMessage").value.trim()
   });
 
-  form.reset();
-  msg.textContent = "Application submitted successfully. We'll review it soon.";
-  btn.textContent = "Submit Application";
-  btn.disabled = false;
+  if(error){
+    console.error(error);
+    affiliateMsg.style.color = "#ffb4b4";
+    affiliateMsg.textContent = "Submission failed. Please email us at inquiries.qevanta@gmail.com.";
+  }else{
+    affiliateForm.reset();
+    affiliateMsg.style.color = "#9ee7bd";
+    affiliateMsg.textContent = "Application submitted successfully. We'll review it soon.";
+  }
 
-  return false;
-}
+  affiliateBtn.disabled = false;
+  affiliateBtn.textContent = "Submit Application";
+});
 </script>
+
 </body>
 </html>
