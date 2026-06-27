@@ -21,7 +21,7 @@
 
 <iframe name="qevantaHiddenFrame" style="display:none;"></iframe>
 
-<form id="qevantaContactForm" action="https://formspree.io/f/xykqwrzy" method="POST" target="qevantaHiddenFrame" onsubmit="return showQevantaSuccess();">
+<form id="qevantaContactForm" action="https://formspree.io/f/xykqwrzy" method="POST" target="qevantaHiddenFrame" onsubmit="event.preventDefault(); showQevantaSuccess(); return false;">
 <label>Your Name</label>
 <input id="contactName" type="text" name="name" required style="width:100%;padding:14px;margin:8px 0 20px;">
 
@@ -45,7 +45,7 @@ const QEVANTA_SUPABASE_URL = "https://mfgmkvmawhfdsigawrpn.supabase.co";
 const QEVANTA_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mZ21rdm1hd2hmZHNpZ2F3cnBuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5Mjk5NjYsImV4cCI6MjA5NzUwNTk2Nn0.6znoxf1v7SDdvBvjMwgdDTjQt7dpsI2qbmvVI1BPN5c";
 const qevantaDb = window.supabase.createClient(QEVANTA_SUPABASE_URL, QEVANTA_SUPABASE_ANON_KEY);
 
-function showQevantaSuccess(){
+async function showQevantaSuccess(){
   const form = document.getElementById("qevantaContactForm");
   const msg = document.getElementById("formMsg");
   const btn = document.getElementById("contactSubmitBtn");
@@ -58,7 +58,7 @@ function showQevantaSuccess(){
   const email = document.getElementById("contactEmail").value.trim();
   const message = document.getElementById("contactMessage").value.trim();
 
-  qevantaDb.rpc("qevanta_save_contact_message", {
+  await qevantaDb.rpc("qevanta_save_contact_message", {
     p_type: "contact",
     p_name: name,
     p_email: email,
