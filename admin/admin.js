@@ -42,6 +42,7 @@ function showView(name){
     affiliates:["Affiliates","Affiliate applications submitted from the affiliate page."],
     analytics:["Analytics","Qevanta usage and growth overview."],
     settings:["Settings","Plan limits and admin controls."]
+    logs:["Activity Logs","Track important admin actions inside Qevanta."],
   };
 
   $("pageTitle").textContent = titles[name]?.[0] || "Admin";
@@ -53,6 +54,7 @@ async function loadAdminData(){
   await loadUsers();
   await loadMessages();
   await loadAnalytics();
+  await loadLogs();
 }
 async function loadOverview(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_overview");
@@ -100,6 +102,31 @@ async function loadAnalytics(){
     console.error(error);
     return;
   }
+  async function loadLogs(){
+  const { data, error } = await qevantaDb.rpc("qevanta_admin_logs_list");
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  renderLogs(data || []);
+}
+
+function renderLogs(logs){
+  if(!logs.length){
+    $("activityLogs").innerHTML = `<div class="list-item">No activity logs yet.</div>`;
+    return;
+  }
+
+  $("activityLogs").innerHTML = logs.map(log=>`
+    <div class="list-item" style="display:block">
+      <b>${esc(log.action || "-")}</b>
+      <p>${esc(JSON.stringify(log.details || {}))}</p>
+      <small>${esc(formatDate(log.created_at))}</small>
+    </div>
+  `).join("");
+}
 
   const a = data || {};
 
