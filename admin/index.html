@@ -156,5 +156,25 @@
 <script src="supabase.js?v=4"></script>
 <script src="admin.js?v=4"></script>
 <script src="auth.js?v=4"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function(){
+  document.querySelectorAll(".nav").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      const viewName = btn.dataset.view;
+
+      document.querySelectorAll(".view").forEach(function(view){
+        view.classList.toggle("hidden", view.id !== viewName);
+      });
+
+      document.querySelectorAll(".nav").forEach(function(navBtn){
+        navBtn.classList.toggle("active", navBtn === btn);
+      });
+
+      const title = document.getElementById("pageTitle");
+      if(title) title.textContent = btn.textContent.trim();
+    });
+  });
+});
+</script>
 </body>
 </html>
