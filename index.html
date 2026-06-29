@@ -103,6 +103,43 @@ button,a,.card,.price-card,.steps div,.testimonial,.value-card,details{transitio
   margin-top:8px;
   font-weight:800;
 }
+  .price-card{
+  position:relative;
+}
+
+.save-badge{
+  width:max-content;
+  margin:0 auto 14px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:white;
+  font-size:12px;
+  font-weight:900;
+  box-shadow:0 10px 28px rgba(34,197,94,.28);
+}
+
+.yearly-price{
+  animation:pricePop .22s ease;
+}
+
+@keyframes pricePop{
+  from{transform:scale(.96);opacity:.5}
+  to{transform:scale(1);opacity:1}
+}
+
+.price-card ul{
+  border-top:1px solid rgba(255,255,255,.10);
+  padding-top:20px;
+}
+
+.billing-toggle{
+  box-shadow:0 18px 55px rgba(20,191,240,.14);
+}
+
+.billing-toggle button.active{
+  box-shadow:0 10px 35px rgba(124,60,255,.34);
+}
 </style>
   <script>
 const QEVANTA_CHROME_STORE_URL = "https://chromewebstore.google.com/detail/qevanta/pnakbibeldbikpobgillinglpegfocoo";
@@ -219,12 +256,12 @@ const QEVANTA_CHROME_STORE_URL = "https://chromewebstore.google.com/detail/qevan
 
     <div class="price-card">
       <h3>Starter</h3>
-
+<div class="save-badge yearly-only hidden-price">🔥 Save $58/year</div>
       <div class="price monthly-price">$29<span>/month</span></div>
 
       <div class="price yearly-price hidden-price">
         <small><del>$29</del></small>
-        $24.16<span>/month</span>
+        $24.50<span>/month</span>
         <em>Billed yearly at $290</em>
       </div>
 
@@ -241,7 +278,7 @@ const QEVANTA_CHROME_STORE_URL = "https://chromewebstore.google.com/detail/qevan
     <div class="price-card popular">
       <div class="ribbon">Most Popular</div>
       <h3>Pro</h3>
-
+<div class="save-badge yearly-only hidden-price">🔥 Save $138/year</div>
       <div class="price monthly-price">$69<span>/month</span></div>
 
       <div class="price yearly-price hidden-price">
@@ -263,12 +300,12 @@ const QEVANTA_CHROME_STORE_URL = "https://chromewebstore.google.com/detail/qevan
     <div class="price-card agency">
       <div class="ribbon gold">Best Value</div>
       <h3>Agency</h3>
-
+<div class="save-badge yearly-only hidden-price">🔥 Save $298/year</div>
       <div class="price monthly-price">$149<span>/month</span></div>
 
       <div class="price yearly-price hidden-price">
         <small><del>$149</del></small>
-        $124.16<span>/month</span>
+        $124.50<span>/month</span>
         <em>Billed yearly at $1490</em>
       </div>
 
@@ -429,6 +466,9 @@ function setBilling(type){
   document.querySelectorAll(".yearly-price").forEach(el=>{
     el.classList.toggle("hidden-price", type !== "yearly");
   });
+  document.querySelectorAll(".yearly-only").forEach(el=>{
+  el.classList.toggle("hidden-price", type !== "yearly");
+});
 }
 
 function startPlan(plan){
