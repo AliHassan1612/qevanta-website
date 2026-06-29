@@ -1,5 +1,6 @@
 let ADMIN_USERS = [];
 let ADMIN_MESSAGES = [];
+let ADMIN_FEEDBACK = [];
 
 function $(id){ return document.getElementById(id); }
 
@@ -41,13 +42,13 @@ function showView(name){
     contact:["Contact","Messages submitted from the contact page."],
     affiliates:["Affiliates","Affiliate applications submitted from the affiliate page."],
     analytics:["Analytics","Qevanta usage and growth overview."],
-settings:["Settings","Plan limits and admin controls."],
-logs:["Activity Logs","Track important admin actions inside Qevanta."],
-feedback:["Feedback","Bug reports, feature suggestions, and website feedback."],
-};
+    settings:["Settings","Plan limits and admin controls."],
+    logs:["Activity Logs","Track important admin actions inside Qevanta."],
+    feedback:["Feedback","Bug reports, feature suggestions, and website feedback."]
+  };
 
-  $("pageTitle").textContent = titles[name]?.[0] || "Admin";
-  $("pageSub").textContent = titles[name]?.[1] || "";
+  if($("pageTitle")) $("pageTitle").textContent = titles[name]?.[0] || "Admin";
+  if($("pageSub")) $("pageSub").textContent = titles[name]?.[1] || "";
 }
 
 async function loadAdminData(){
@@ -57,6 +58,7 @@ async function loadAdminData(){
   await loadAnalytics();
   await loadLogs();
 }
+
 async function loadOverview(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_overview");
   if(error){console.error(error);return;}
@@ -72,7 +74,6 @@ async function loadOverview(){
 
 async function loadUsers(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_users");
-
   if(error){
     console.error(error);
     $("usersTable").innerHTML = `<tr><td colspan="8">Could not load users.</td></tr>`;
@@ -86,35 +87,35 @@ async function loadUsers(){
 
 async function loadMessages(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_messages");
-
-  if(error){
-    console.error(error);
-    return;
-  }
+  if(error){console.error(error);return;}
 
   ADMIN_MESSAGES = data || [];
   renderContactMessages();
   renderAffiliateMessages();
 }
+
 async function loadAnalytics(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_analytics");
+  if(error){console.error(error);return;}
 
-  if(error){
-    console.error(error);
-    return;
-  }
-  async function loadLogs(){
+  const a = data || {};
+  $("signupsToday").textContent = a.signups_today || 0;
+  $("signups7Days").textContent = a.signups_7_days || 0;
+  $("messagesTotal").textContent = a.messages_total || 0;
+  $("contactMessagesCount").textContent = a.contact_messages || 0;
+  $("affiliateAppsCount").textContent = a.affiliate_applications || 0;
+  $("creditsUsedTotal").textContent = a.total_credits_used || 0;
+}
+
+async function loadLogs(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_logs_list");
-
-  if(error){
-    console.error(error);
-    return;
-  }
-
+  if(error){console.error(error);return;}
   renderLogs(data || []);
 }
 
 function renderLogs(logs){
+  if(!$("activityLogs")) return;
+
   if(!logs.length){
     $("activityLogs").innerHTML = `<div class="list-item">No activity logs yet.</div>`;
     return;
@@ -129,15 +130,6 @@ function renderLogs(logs){
   `).join("");
 }
 
-  const a = data || {};
-
-  $("signupsToday").textContent = a.signups_today || 0;
-  $("signups7Days").textContent = a.signups_7_days || 0;
-  $("messagesTotal").textContent = a.messages_total || 0;
-  $("contactMessagesCount").textContent = a.contact_messages || 0;
-  $("affiliateAppsCount").textContent = a.affiliate_applications || 0;
-  $("creditsUsedTotal").textContent = a.total_credits_used || 0;
-}
 function renderUsers(){
   const q = $("userSearch")?.value?.toLowerCase() || "";
 
@@ -151,27 +143,25 @@ function renderUsers(){
     return;
   }
 
-  $("usersTable").innerHTML = filtered.map(u=>{
-    return `
-      <tr>
-        <td>${esc(u.email)}</td>
-        <td>${esc(u.first_name || "-")}</td>
-        <td>${esc(u.company_name || "-")}</td>
-        <td><span class="badge">${esc((u.plan || "FREE").toUpperCase())}</span></td>
-        <td>${esc(Number(u.credits_used || 0))} / ${esc(u.credits_monthly ?? 0)}</td>
-        <td><b>${esc(u.referral_code || "-")}</b><br><small>By: ${esc(u.referred_by || "-")}</small></td>
-        <td>${esc(formatDate(u.created_at))}</td>
-        <td>
-          <button class="mini" onclick="quickPlan('${u.id}','FREE')">Free</button>
-          <button class="mini" onclick="quickPlan('${u.id}','STARTER')">Starter</button>
-          <button class="mini" onclick="quickPlan('${u.id}','PRO')">Pro</button>
-          <button class="mini" onclick="quickPlan('${u.id}','AGENCY')">Agency</button>
-          <button class="mini" onclick="addCredits('${u.id}',500)">+500</button>
-          <button class="mini danger" onclick="resetUsed('${u.id}')">Reset Used</button>
-        </td>
-      </tr>
-    `;
-  }).join("");
+  $("usersTable").innerHTML = filtered.map(u=>`
+    <tr>
+      <td>${esc(u.email)}</td>
+      <td>${esc(u.first_name || "-")}</td>
+      <td>${esc(u.company_name || "-")}</td>
+      <td><span class="badge">${esc((u.plan || "FREE").toUpperCase())}</span></td>
+      <td>${esc(Number(u.credits_used || 0))} / ${esc(u.credits_monthly ?? 0)}</td>
+      <td><b>${esc(u.referral_code || "-")}</b><br><small>By: ${esc(u.referred_by || "-")}</small></td>
+      <td>${esc(formatDate(u.created_at))}</td>
+      <td>
+        <button class="mini" onclick="quickPlan('${u.id}','FREE')">Free</button>
+        <button class="mini" onclick="quickPlan('${u.id}','STARTER')">Starter</button>
+        <button class="mini" onclick="quickPlan('${u.id}','PRO')">Pro</button>
+        <button class="mini" onclick="quickPlan('${u.id}','AGENCY')">Agency</button>
+        <button class="mini" onclick="addCredits('${u.id}',500)">+500</button>
+        <button class="mini danger" onclick="resetUsed('${u.id}')">Reset Used</button>
+      </td>
+    </tr>
+  `).join("");
 }
 
 async function updateUser(userId, plan, monthly, used){
@@ -263,42 +253,6 @@ function renderAffiliateMessages(){
     $("affiliateMessages").innerHTML = `<div class="list-item">No affiliate applications yet.</div>`;
     return;
   }
-  async function loadFeedback(){
-  const { data, error } = await qevantaDb.rpc("qevanta_admin_feedback");
-
-  if(error){
-    console.error(error);
-    if($("feedbackMessages")){
-      $("feedbackMessages").innerHTML = `<div class="list-item">Could not load feedback.</div>`;
-    }
-    return;
-  }
-
-  ADMIN_FEEDBACK = data || [];
-  renderFeedbackMessages();
-}
-
-function renderFeedbackMessages(){
-  if(!$("feedbackMessages")) return;
-
-  if(!ADMIN_FEEDBACK.length){
-    $("feedbackMessages").innerHTML = `<div class="list-item">No feedback yet.</div>`;
-    return;
-  }
-
-async function updateFeedbackStatus(id, status){
-  const { error } = await qevantaDb.rpc("qevanta_admin_update_feedback_status", {
-    p_feedback_id:id,
-    p_status:status
-  });
-
-  if(error){
-    alert(error.message || "Feedback status update failed.");
-    return;
-  }
-
-  await loadFeedback();
-}
 
   $("affiliateMessages").innerHTML = messages.map(m=>`
     <div class="list-item" style="display:block">
@@ -332,5 +286,5 @@ document.querySelectorAll(".nav").forEach(btn=>{
   btn.addEventListener("click", ()=>showView(btn.dataset.view));
 });
 
-$("refreshBtn").addEventListener("click", loadAdminData);
-$("userSearch").addEventListener("input", renderUsers);
+$("refreshBtn")?.addEventListener("click", loadAdminData);
+$("userSearch")?.addEventListener("input", renderUsers);
