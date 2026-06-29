@@ -41,9 +41,10 @@ function showView(name){
     contact:["Contact","Messages submitted from the contact page."],
     affiliates:["Affiliates","Affiliate applications submitted from the affiliate page."],
     analytics:["Analytics","Qevanta usage and growth overview."],
-    settings:["Settings","Plan limits and admin controls."]
-    logs:["Activity Logs","Track important admin actions inside Qevanta."],
-  };
+settings:["Settings","Plan limits and admin controls."],
+logs:["Activity Logs","Track important admin actions inside Qevanta."],
+feedback:["Feedback","Bug reports, feature suggestions, and website feedback."],
+};
 
   $("pageTitle").textContent = titles[name]?.[0] || "Admin";
   $("pageSub").textContent = titles[name]?.[1] || "";
