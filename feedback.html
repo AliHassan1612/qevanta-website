@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feedback — Qevanta</title>
+<meta name="description" content="Send feedback, report a bug, or suggest a feature for Qevanta.">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<header class="nav">
+<a class="brand" href="index.html">
+  <div class="logo">Q</div>
+  <div><strong>Qevanta</strong><small>Audience Intelligence</small></div>
+</a>
+
+<nav class="navlinks">
+  <a href="index.html#features">Features</a>
+  <a href="index.html#pricing">Pricing</a>
+  <a href="affiliate.html">Affiliates</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<a class="cta" href="https://chromewebstore.google.com/detail/qevanta/pnakbibeldbikpobgillinglpegfocoo" target="_blank" rel="noopener">Install</a>
+</header>
+
+<main class="section wrap">
+  <div class="value-card" style="max-width:900px;margin:auto">
+
+    <h1 style="font-size:46px;margin-top:0">Feedback</h1>
+
+    <p>
+      Found a bug, have a feature idea, or want to share feedback?
+      Send it below and our team will review it.
+    </p>
+
+    <form id="qevantaFeedbackForm" style="margin-top:28px">
+
+      <label>Your Name</label>
+      <input id="feedbackName" type="text" required style="width:100%;padding:14px;margin:8px 0 18px;">
+
+      <label>Email Address</label>
+      <input id="feedbackEmail" type="email" required style="width:100%;padding:14px;margin:8px 0 18px;">
+
+      <label>Type</label>
+      <select id="feedbackType" required style="width:100%;padding:14px;margin:8px 0 18px;">
+        <option value="">Select one</option>
+        <option value="bug">Report a Bug</option>
+        <option value="feature">Suggest a Feature</option>
+        <option value="general">General Feedback</option>
+      </select>
+
+      <label>Subject</label>
+      <input id="feedbackSubject" type="text" required style="width:100%;padding:14px;margin:8px 0 18px;">
+
+      <label>Message</label>
+      <textarea id="feedbackMessage" rows="7" required style="width:100%;padding:14px;margin:8px 0 20px;"></textarea>
+
+      <button id="feedbackSubmitBtn" class="cta" type="submit">Submit Feedback</button>
+
+      <p id="feedbackMsg" style="margin-top:16px;color:#9ee7bd"></p>
+    </form>
+
+    <br>
+
+    <p>or email us directly at <b>inquiries.qevanta@gmail.com</b></p>
+
+  </div>
+</main>
+
+<script>
+const QEVANTA_SUPABASE_URL = "https://mfgmkvmawhfdsigawrpn.supabase.co";
+const QEVANTA_SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_KEY_HERE";
+
+const qevantaDb = window.supabase.createClient(
+  QEVANTA_SUPABASE_URL,
+  QEVANTA_SUPABASE_ANON_KEY
+);
+
+const form = document.getElementById("qevantaFeedbackForm");
+const msg = document.getElementById("feedbackMsg");
+const btn = document.getElementById("feedbackSubmitBtn");
+
+form.addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  msg.style.color = "#9ee7bd";
+  msg.textContent = "Submitting...";
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+
+  const payload = {
+    p_name: document.getElementById("feedbackName").value.trim(),
+    p_email: document.getElementById("feedbackEmail").value.trim(),
+    p_type: document.getElementById("feedbackType").value.trim(),
+    p_subject: document.getElementById("feedbackSubject").value.trim(),
+    p_message: document.getElementById("feedbackMessage").value.trim()
+  };
+
+  try {
+    const { error } = await qevantaDb.rpc("qevanta_submit_public_feedback", payload);
+
+    if (error) {
+      throw error;
+    }
+
+    form.reset();
+    msg.style.color = "#9ee7bd";
+    msg.textContent = "Thank you! Your feedback has been received.";
+  } catch (err) {
+    msg.style.color = "#ffb4b4";
+    msg.textContent = "Could not submit feedback. Please email us at inquiries.qevanta@gmail.com.";
+    console.error(err);
+  }
+
+  btn.disabled = false;
+  btn.textContent = "Submit Feedback";
+});
+</script>
+
+</body>
+</html>
