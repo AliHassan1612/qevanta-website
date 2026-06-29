@@ -286,20 +286,6 @@ function renderFeedbackMessages(){
     return;
   }
 
-  $("feedbackMessages").innerHTML = ADMIN_FEEDBACK.map(f=>`
-    <div class="list-item" style="display:block">
-      <b>${esc((f.type || "-").toUpperCase())}: ${esc(f.subject || "-")}</b>
-      <p><b>Name:</b> ${esc(f.name || "-")}</p>
-      <p><b>Email:</b> ${esc(f.email || "-")}</p>
-      <p>${esc(f.message || "-")}</p>
-      <small>Status: ${esc(f.status || "new")} · ${esc(formatDate(f.created_at))}</small><br><br>
-      <button class="mini" onclick="updateFeedbackStatus('${f.id}','reviewed')">Mark Reviewed</button>
-      <button class="mini" onclick="updateFeedbackStatus('${f.id}','resolved')">Resolve</button>
-      <button class="mini danger" onclick="updateFeedbackStatus('${f.id}','deleted')">Delete</button>
-    </div>
-  `).join("");
-}
-
 async function updateFeedbackStatus(id, status){
   const { error } = await qevantaDb.rpc("qevanta_admin_update_feedback_status", {
     p_feedback_id:id,
