@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — Qevanta</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root{--bg:#030714;--panel:#0b1122;--text:#f8fbff;--muted:#a7b4c9;--line:rgba(255,255,255,.12);--purple:#7c3cff;--blue:#14bff0;--green:#65f0a4;--red:#ff8a8a}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 30% 0%,rgba(124,60,255,.35),transparent 35%),linear-gradient(180deg,#030714,#050b18);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+.card{width:min(520px,100%);border:1px solid var(--line);border-radius:28px;padding:30px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));box-shadow:0 30px 90px rgba(0,0,0,.38)}
+.logo{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-size:28px;font-weight:900;margin-bottom:18px}
+h1{margin:0 0 8px;font-size:34px}
+p{color:var(--muted);line-height:1.6}
+.row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.row b{font-size:18px}
+.plan{margin:22px 0;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.04)}
+.price{font-size:38px;font-weight:900;margin:8px 0}
+.price span{font-size:14px;color:var(--muted)}
+input{width:100%;padding:15px 16px;border-radius:14px;border:1px solid var(--line);background:#111827;color:white;outline:none}
+button{width:100%;border:0;border-radius:14px;padding:15px 18px;margin-top:12px;font-weight:900;color:white;background:linear-gradient(135deg,var(--purple),var(--blue));cursor:pointer}
+.secondary{background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.msg{margin-top:10px;font-size:14px}
+.ok{color:var(--green)}
+.err{color:var(--red)}
+.total{font-size:28px!important}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(101,240,164,.14);color:var(--green);font-weight:900;font-size:12px}
+small{color:var(--muted)}
+</style>
+</head>
+
+<body>
+<div class="card">
+  <div class="logo">Q</div>
+  <h1>Secure Checkout</h1>
+  <p>Review your plan, apply an affiliate or promo code, then continue to secure payment.</p>
+
+  <div class="plan">
+    <span class="badge" id="billingBadge">Monthly</span>
+    <h2 id="planName">Loading...</h2>
+    <div class="price" id="planPrice">$0<span>/month</span></div>
+    <small id="billingText">Loading billing details...</small>
+  </div>
+
+  <label>Affiliate / Promo Code</label>
+  <input id="promoCode" placeholder="Enter code e.g. QEVANTA10">
+  <button class="secondary" id="applyCodeBtn">Apply Code</button>
+  <div class="msg" id="promoMsg"></div>
+
+  <div class="row"><span>Subtotal</span><b id="subtotal">$0.00</b></div>
+  <div class="row"><span>Discount</span><b id="discount">$0.00</b></div>
+  <div class="row"><span>Total Due</span><b class="total" id="total">$0.00</b></div>
+
+  <button id="checkoutBtn">Continue to Secure Checkout</button>
+  <button class="secondary" onclick="location.href='index.html#pricing'">Back to Pricing</button>
+
+  <p style="font-size:13px;margin-bottom:0">Powered by Stripe. Your subscription will activate automatically after successful payment.</p>
+</div>
+
+<script>
+const SUPABASE_URL = "https://mfgmkvmawhfdsigawrpn.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mZ21rdm1hd2hmZHNpZ2F3cnBuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5Mjk5NjYsImV4cCI6MjA5NzUwNTk2Nn0.6znoxf1v7SDdvBvjMwgdDTjQt7dpsI2qbmvVI1BPN5c";
+
+const qevantaDb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const PLANS = {
+  starter:{name:"Starter", amount:29, interval:"monthly", label:"$29/month"},
+  pro:{name:"Pro", amount:69, interval:"monthly", label:"$69/month"},
+  agency:{name:"Agency", amount:149, interval:"monthly", label:"$149/month"},
+  starter_yearly:{name:"Starter Yearly", amount:290, interval:"yearly", label:"$24.50/month", billing:"Billed yearly at $290"},
+  pro_yearly:{name:"Pro Yearly", amount:690, interval:"yearly", label:"$57.50/month", billing:"Billed yearly at $690"},
+  agency_yearly:{name:"Agency Yearly", amount:1490, interval:"yearly", label:"$124.50/month", billing:"Billed yearly at $1490"}
+};
+
+let selectedPlan = new URLSearchParams(location.search).get("plan") || "pro";
+let plan = PLANS[selectedPlan] || PLANS.pro;
+let appliedCode = null;
+let discountPercent = 0;
+let affiliateData = null;
+
+function money(n){ return "$" + Number(n || 0).toFixed(2); }
+
+function render(){
+  const discountAmount = plan.amount * (discountPercent / 100);
+  const total = plan.amount - discountAmount;
+
+  document.getElementById("planName").textContent = plan.name;
+  document.getElementById("planPrice").innerHTML =
+    plan.interval === "yearly"
+      ? `${plan.label}<span></span>`
+      : `$${plan.amount}<span>/month</span>`;
+
+  document.getElementById("billingBadge").textContent = plan.interval === "yearly" ? "Yearly" : "Monthly";
+  document.getElementById("billingText").textContent = plan.billing || plan.label;
+  document.getElementById("subtotal").textContent = money(plan.amount);
+  document.getElementById("discount").textContent = "-" + money(discountAmount);
+  document.getElementById("total").textContent = money(total);
+}
+
+async function applyCode(){
+  const code = document.getElementById("promoCode").value.trim();
+  const msg = document.getElementById("promoMsg");
+
+  if(!code){
+    msg.className = "msg err";
+    msg.textContent = "Please enter a promo or affiliate code.";
+    return;
+  }
+
+  msg.className = "msg";
+  msg.textContent = "Checking code...";
+
+  const { data, error } = await qevantaDb.rpc("qevanta_validate_affiliate_code", {
+    p_code: code
+  });
+
+  const row = Array.isArray(data) ? data[0] : data;
+
+  if(error || !row || row.valid !== true){
+    appliedCode = null;
+    discountPercent = 0;
+    affiliateData = null;
+    msg.className = "msg err";
+    msg.textContent = "Invalid code.";
+    render();
+    return;
+  }
+
+  appliedCode = row.affiliate_code;
+  discountPercent = Number(row.discount_percent || 10);
+  affiliateData = row;
+
+  msg.className = "msg ok";
+  msg.textContent = `Code applied: ${appliedCode}. You saved ${discountPercent}%.`;
+  render();
+}
+
+async function startCheckout(){
+  alert(
+    "Next step: Stripe checkout function connect hogi.\\n\\n" +
+    "Plan: " + selectedPlan + "\\n" +
+    "Code: " + (appliedCode || "-")
+  );
+}
+
+document.getElementById("applyCodeBtn").addEventListener("click", applyCode);
+document.getElementById("checkoutBtn").addEventListener("click", startCheckout);
+render();
+</script>
+</body>
+</html>
