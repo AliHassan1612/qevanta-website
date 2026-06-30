@@ -53,13 +53,14 @@ function showView(name){
 
 async function loadAdminData(){
   await loadOverview();
+  await loadBillingOverview();
   await loadUsers();
   await loadMessages();
   await loadAnalytics();
   await loadLogs();
   await loadCommissions();
   await loadWithdrawals();
-}
+}}
 
 async function loadOverview(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_overview");
@@ -72,6 +73,23 @@ async function loadOverview(){
   $("proUsers").textContent = o.pro_users || 0;
   $("agencyUsers").textContent = o.agency_users || 0;
   $("adminCount").textContent = o.admins || 0;
+}
+async function loadBillingOverview(){
+  const { data, error } = await qevantaDb.rpc("qevanta_admin_billing_overview");
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  const b = data || {};
+
+  if($("billingTotalCommissions")) $("billingTotalCommissions").textContent = "$" + Number(b.total_commissions || 0).toFixed(2);
+  if($("billingPendingCommissions")) $("billingPendingCommissions").textContent = "$" + Number(b.pending_commissions || 0).toFixed(2);
+  if($("billingPaidCommissions")) $("billingPaidCommissions").textContent = "$" + Number(b.paid_commissions || 0).toFixed(2);
+  if($("billingPendingWithdrawals")) $("billingPendingWithdrawals").textContent = "$" + Number(b.pending_withdrawals || 0).toFixed(2);
+  if($("billingTotalWithdrawals")) $("billingTotalWithdrawals").textContent = "$" + Number(b.total_withdrawals || 0).toFixed(2);
+  if($("billingCommissionCount")) $("billingCommissionCount").textContent = Number(b.commission_count || 0);
 }
 
 async function loadUsers(){
