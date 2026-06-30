@@ -57,6 +57,8 @@ async function loadAdminData(){
   await loadMessages();
   await loadAnalytics();
   await loadLogs();
+  await loadCommissions();
+  await loadWithdrawals();
 }
 
 async function loadOverview(){
@@ -129,7 +131,71 @@ function renderLogs(logs){
     </div>
   `).join("");
 }
+async function loadCommissions(){
+  const { data, error } = await qevantaDb.rpc("qevanta_admin_commissions");
 
+  if(error){
+    console.error(error);
+    if($("commissionsList")){
+      $("commissionsList").innerHTML = `<div class="list-item">Could not load commissions.</div>`;
+    }
+    return;
+  }
+
+  renderCommissions(data || []);
+}
+
+function renderCommissions(items){
+  if(!$("commissionsList")) return;
+
+  if(!items.length){
+    $("commissionsList").innerHTML = `<div class="list-item">No commissions yet.</div>`;
+    return;
+  }
+
+  $("commissionsList").innerHTML = items.map(c=>`
+    <div class="list-item" style="display:block">
+      <b>${esc(c.affiliate_code || "-")}</b>
+      <p><b>Customer:</b> ${esc(c.customer_email || "-")}</p>
+      <p><b>Plan:</b> ${esc(c.plan || "-")} · ${esc(c.billing_interval || "-")}</p>
+      <p><b>Paid:</b> $${Number(c.net_amount || 0).toFixed(2)} · <b>Commission:</b> $${Number(c.commission_amount || 0).toFixed(2)} (${Number(c.commission_percent || 0)}%)</p>
+      <small>Status: ${esc(c.status || "-")} · ${esc(formatDate(c.created_at))}</small>
+    </div>
+  `).join("");
+}
+
+async function loadWithdrawals(){
+  const { data, error } = await qevantaDb.rpc("qevanta_admin_withdrawals");
+
+  if(error){
+    console.error(error);
+    if($("withdrawalsList")){
+      $("withdrawalsList").innerHTML = `<div class="list-item">Could not load withdrawals.</div>`;
+    }
+    return;
+  }
+
+  renderWithdrawals(data || []);
+}
+
+function renderWithdrawals(items){
+  if(!$("withdrawalsList")) return;
+
+  if(!items.length){
+    $("withdrawalsList").innerHTML = `<div class="list-item">No withdrawal requests yet.</div>`;
+    return;
+  }
+
+  $("withdrawalsList").innerHTML = items.map(w=>`
+    <div class="list-item" style="display:block">
+      <b>${esc(w.affiliate_code || "-")}</b>
+      <p><b>Amount:</b> $${Number(w.amount || 0).toFixed(2)}</p>
+      <p><b>Method:</b> ${esc(w.payout_method || "-")}</p>
+      <p><b>Details:</b> ${esc(w.payout_details || "-")}</p>
+      <small>Status: ${esc(w.status || "-")} · ${esc(formatDate(w.requested_at))}</small>
+    </div>
+  `).join("");
+}
 function renderUsers(){
   const q = $("userSearch")?.value?.toLowerCase() || "";
 
