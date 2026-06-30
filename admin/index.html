@@ -37,9 +37,11 @@
     <button class="nav" data-view="users">Users</button>
     <button class="nav" data-view="referrals">Referrals</button>
     <button class="nav" data-view="contact">Contact</button>
-    <button class="nav" data-view="affiliates">Affiliates</button>
-    <button class="nav" data-view="analytics">Analytics</button>
-    <button class="nav" data-view="logs">Activity Logs</button>
+<button class="nav" data-view="affiliates">Affiliates</button>
+<button class="nav" data-view="commissions">Commissions</button>
+<button class="nav" data-view="withdrawals">Withdrawals</button>
+<button class="nav" data-view="analytics">Analytics</button>
+<button class="nav" data-view="logs">Activity Logs</button>>
     <button class="nav" data-view="settings">Settings</button>
 
     <button id="logoutBtn" class="logout">Logout</button>
@@ -149,7 +151,22 @@
         <div class="setting-row"><span>Pro Credits</span><b>10000</b></div>
         <div class="setting-row"><span>Agency Credits</span><b>Unlimited</b></div>
       </div>
-    </section>
+    </section
+      <section id="commissions" class="view hidden">
+  <div class="panel">
+    <h2>Commissions</h2>
+    <p>Affiliate commissions created after successful payments.</p>
+    <div id="commissionsList" class="list"></div>
+  </div>
+</section>
+
+<section id="withdrawals" class="view hidden">
+  <div class="panel">
+    <h2>Withdrawals</h2>
+    <p>Affiliate withdrawal requests and payout status.</p>
+    <div id="withdrawalsList" class="list"></div>
+  </div>
+</section>
   </main>
 </div>
 
