@@ -472,10 +472,12 @@ function setBilling(type){
 }
 
 function startPlan(plan){
-  alert(
-    "Plan selected: " + String(plan).toUpperCase() +
-    "\n\nStripe checkout will be connected next."
-  );
+  if(plan === "free"){
+    window.open(QEVANTA_CHROME_STORE_URL, "_blank", "noopener");
+    return;
+  }
+
+  window.location.href = "checkout.html?plan=" + encodeURIComponent(plan);
 }
 </script>
 </body>
