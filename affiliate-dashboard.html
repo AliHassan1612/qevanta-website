@@ -318,7 +318,35 @@ async function requestWithdrawal(){
   msg.textContent = "Withdrawal request submitted successfully.";
   await loadDashboard();
 }
+async function createAffiliateCode(){
 
+  const code = $("customAffiliateCode")?.value?.trim();
+
+  if(!code){
+    alert("Please enter an affiliate code.");
+    return;
+  }
+
+  const { error } = await db.rpc(
+    "qevanta_create_affiliate_code",
+    {
+      code: code
+    }
+  );
+
+  if(error){
+    alert(error.message);
+    return;
+  }
+
+  $("customAffiliateCode").value = "";
+
+  await loadDashboard();
+
+  alert("Affiliate code created successfully.");
+
+}
+  $("createAffiliateCodeBtn")?.addEventListener("click", createAffiliateCode);
 $("copyCodeBtn").addEventListener("click", async()=>{await navigator.clipboard.writeText($("affiliateCode").value);});
 $("copyLinkBtn").addEventListener("click", async()=>{await navigator.clipboard.writeText($("affiliateLink").value);});
 $("withdrawBtn").addEventListener("click", requestWithdrawal);
