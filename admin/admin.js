@@ -60,8 +60,7 @@ async function loadAdminData(){
   await loadLogs();
   await loadCommissions();
   await loadWithdrawals();
-}}
-
+}
 async function loadOverview(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_overview");
   if(error){console.error(error);return;}
