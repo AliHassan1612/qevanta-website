@@ -377,11 +377,27 @@ async function createAffiliateCode(){
   alert("Affiliate code created successfully.");
 
 }
-  $("createAffiliateCodeBtn")?.addEventListener("click", createAffiliateCode);
-$("copyCodeBtn").addEventListener("click", async()=>{await navigator.clipboard.writeText($("affiliateCode").value);});
-$("copyLinkBtn").addEventListener("click", async()=>{await navigator.clipboard.writeText($("affiliateLink").value);});
-$("withdrawBtn").addEventListener("click", requestWithdrawal);
-$("refreshBtn").addEventListener("click", async()=>{await loadDashboard(); await loadActivity();});
+$("createAffiliateCodeBtn")?.addEventListener("click", createAffiliateCode);
+
+$("copyCodeBtn")?.addEventListener("click", async()=>{
+  const code = $("affiliateCodeText")?.textContent?.trim();
+  if(!code || code === "-"){
+    alert("Create an affiliate code first.");
+    return;
+  }
+  await navigator.clipboard.writeText(code);
+});
+
+$("copyLinkBtn")?.addEventListener("click", async()=>{
+  const link = $("affiliateLink")?.value?.trim();
+  if(!link || link === "-"){
+    alert("Create an affiliate code first.");
+    return;
+  }
+  await navigator.clipboard.writeText(link);
+});
+
+$("withdrawBtn")?.addEventListener("click", requestWithdrawal);$("refreshBtn").addEventListener("click", async()=>{await loadDashboard(); await loadActivity();});
 $("logoutBtn").addEventListener("click", async()=>{await db.auth.signOut(); location.href="affiliate-login.html";});
 
 document.querySelectorAll(".nav[data-view]").forEach(btn=>{
