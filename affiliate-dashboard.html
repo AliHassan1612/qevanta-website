@@ -293,6 +293,8 @@ $("affiliateCodeText").textContent = code;  $("affiliateLink").value = link;
   $("commissionRate").textContent = Number(d.commission_rate || 15) + "%";
   $("discountPercent").textContent = Number(d.discount_percent || 10) + "%";
   $("pendingWithdrawals").textContent = money(d.pending_withdrawals);
+  if($("withdrawAvailable")) $("withdrawAvailable").textContent = money(d.available_balance);
+if($("withdrawPending")) $("withdrawPending").textContent = money(d.pending_withdrawals);
 }
 
 async function loadActivity(){
