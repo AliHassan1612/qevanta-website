@@ -187,38 +187,55 @@ button{border:0;border-radius:14px;padding:14px 18px;font-weight:900;color:white
   </div>
 
 </div>
-    <section id="referrals" class="view hidden">
-      <div class="panel">
-        <h2>Referral Activity</h2>
-        <p style="color:#a7b4c9">Your referral and commission history will appear here.</p>
-        <div id="activityList" class="list"></div>
+   <section id="referrals" class="view hidden">
+  <div class="panel">
+    <h2>Referral Activity</h2>
+    <p style="color:#a7b4c9">Track customers who signed up or paid using your affiliate code.</p>
+
+    <div id="activityList" class="list">
+      <div class="item">
+        No referrals yet. Share your affiliate link to start earning commissions.
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section id="withdraw" class="view hidden">
-      <div class="panel">
-        <h2>Request Withdrawal</h2>
-        <p style="color:#a7b4c9">Withdrawals are reviewed manually by Qevanta admin.</p>
+<section id="withdraw" class="view hidden">
+  <div class="cards">
+    <div class="card"><span>Available Balance</span><b id="withdrawAvailable">$0.00</b></div>
+    <div class="card"><span>Pending Withdrawals</span><b id="withdrawPending">$0.00</b></div>
+    <div class="card"><span>Minimum Withdrawal</span><b>$50.00</b></div>
+  </div>
 
-        <label>Amount</label>
-        <input id="withdrawAmount" type="number" min="1" step="0.01" placeholder="Example: 50">
+  <div class="panel">
+    <h2>Request Withdrawal</h2>
+    <p style="color:#a7b4c9">Withdrawals are reviewed manually by Qevanta admin.</p>
 
-        <label>Payout Method</label>
-        <select id="payoutMethod">
-          <option value="PayPal">PayPal</option>
-          <option value="Bank Transfer">Bank Transfer</option>
-          <option value="Wise">Wise</option>
-          <option value="Other">Other</option>
-        </select>
+    <label>Amount</label>
+    <input id="withdrawAmount" type="number" min="50" step="0.01" placeholder="Minimum $50">
 
-        <label>Payout Details</label>
-        <textarea id="payoutDetails" rows="5" placeholder="Enter PayPal email, bank details, Wise email, or payout instructions"></textarea>
+    <label>Payout Method</label>
+    <select id="payoutMethod">
+      <option value="PayPal">PayPal</option>
+      <option value="Wise">Wise</option>
+      <option value="Bank Transfer">Bank Transfer</option>
+      <option value="Other">Other</option>
+    </select>
 
-        <button id="withdrawBtn">Submit Withdrawal Request</button>
-        <div id="withdrawMsg" class="msg"></div>
-      </div>
-    </section>
+    <label>Payout Details</label>
+    <textarea id="payoutDetails" rows="5" placeholder="Enter PayPal email, Wise email, bank details, or payout instructions"></textarea>
 
+    <button id="withdrawBtn">Submit Withdrawal Request</button>
+    <div id="withdrawMsg" class="msg"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Withdrawal History</h2>
+    <div id="withdrawHistory" class="list">
+      <div class="item">No withdrawal requests yet.</div>
+    </div>
+  </div>
+</section>
     <section id="settings" class="view hidden">
       <div class="panel">
         <h2>Settings</h2>
