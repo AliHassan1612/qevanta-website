@@ -1,160 +1,24 @@
-create or replace function public.qevanta_handle_stripe_checkout_completed(
-  p_email text,
-  p_plan text,
-  p_plan_raw text,
-  p_billing_interval text,
-  p_credits_monthly integer,
-  p_stripe_customer_id text,
-  p_stripe_subscription_id text,
-  p_stripe_checkout_session_id text,
-  p_stripe_invoice_id text,
-  p_stripe_payment_intent_id text,
-  p_current_period_start timestamptz,
-  p_current_period_end timestamptz,
-  p_gross_amount numeric,
-  p_discount_amount numeric,
-  p_net_amount numeric,
-  p_affiliate_code text
-)
-returns void
-language plpgsql
-security definer
-set search_path = public
-as $$
-declare
-  v_user_id uuid;
-  v_affiliate public.qevanta_affiliates%rowtype;
-  v_commission_percent integer := 0;
-  v_commission_amount numeric := 0;
-begin
-  select id
-  into v_user_id
-  from public.qevanta_profiles
-  where lower(email) = lower(p_email)
-  limit 1;
-
-  if v_user_id is null then
-    raise exception 'Qevanta user not found for email %', p_email;
-  end if;
-
-  update public.qevanta_profiles
-  set
-    plan = lower(p_plan),
-    credits_monthly = p_credits_monthly,
-    credits_used = 0,
-    stripe_customer_id = p_stripe_customer_id,
-    stripe_subscription_id = p_stripe_subscription_id,
-    subscription_status = 'active',
-    current_period_end = p_current_period_end,
-    updated_at = now()
-  where id = v_user_id;
-
-  insert into public.qevanta_subscriptions (
-    user_id,
-    plan,
-    status,
-    stripe_customer_id,
-    stripe_subscription_id,
-    billing_interval,
-    current_period_start,
-    current_period_end,
-    renews_at
-  )
-  values (
-    v_user_id,
-    lower(p_plan),
-    'active',
-    p_stripe_customer_id,
-    p_stripe_subscription_id,
-    p_billing_interval,
-    p_current_period_start,
-    p_current_period_end,
-    p_current_period_end
-  );
-
-  if nullif(trim(p_affiliate_code), '') is not null then
-    select *
-    into v_affiliate
-    from public.qevanta_affiliates
-    where upper(affiliate_code) = upper(trim(p_affiliate_code))
-    limit 1;
-
-    if found then
-      v_commission_percent := coalesce(v_affiliate.commission_rate, 15);
-      v_commission_amount := round((p_net_amount * v_commission_percent / 100)::numeric, 2);
-
-      insert into public.qevanta_referrals (
-        affiliate_code,
-        customer_email,
-        customer_user_id,
-        plan,
-        discount_percent,
-        commission_percent,
-        commission_amount,
-        payment_status,
-        stripe_session_id
-      )
-      values (
-        v_affiliate.affiliate_code,
-        p_email,
-        v_user_id,
-        lower(p_plan),
-        case when p_discount_amount > 0 and p_gross_amount > 0
-          then round((p_discount_amount / p_gross_amount * 100)::numeric)::integer
-          else 0
-        end,
-        v_commission_percent,
-        v_commission_amount,
-        'paid',
-        p_stripe_checkout_session_id
-      );
-
-      insert into public.qevanta_commissions (
-        affiliate_code,
-        affiliate_user_id,
-        customer_user_id,
-        customer_email,
-        plan,
-        billing_interval,
-        gross_amount,
-        discount_amount,
-        net_amount,
-        commission_percent,
-        commission_amount,
-        stripe_checkout_session_id,
-        stripe_invoice_id,
-        stripe_payment_intent_id,
-        status,
-        paid_at
-      )
-      values (
-        v_affiliate.affiliate_code,
-        v_affiliate.user_id,
-        v_user_id,
-        p_email,
-        lower(p_plan),
-        p_billing_interval,
-        p_gross_amount,
-        p_discount_amount,
-        p_net_amount,
-        v_commission_percent,
-        v_commission_amount,
-        p_stripe_checkout_session_id,
-        nullif(p_stripe_invoice_id, ''),
-        nullif(p_stripe_payment_intent_id, ''),
-        'pending',
-        null
-      )
-      on conflict do nothing;
-
-      update public.qevanta_affiliates
-      set total_earnings = coalesce(total_earnings, 0) + v_commission_amount
-      where id = v_affiliate.id;
-    end if;
-  end if;
-end;
-$$;
-
-grant execute on function public.qevanta_handle_stripe_checkout_completed(
-  text,text,text,text,integer,text,text,text,text,text,timestamptz,timestamptz,numeric,numeric,numeric,text
-) to service_role;
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payment Successful — Qevanta</title>
+<link rel="icon" href="favicon.png">
+<style>
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(180deg,#030714,#050b18);color:#f8fbff;font-family:Inter,Segoe UI,Arial,sans-serif}
+.card{width:min(560px,100%);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:34px;background:rgba(255,255,255,.06);text-align:center}
+.icon{font-size:46px;color:#65f0a4}
+p{color:#a7b4c9;line-height:1.7}
+a{display:inline-flex;margin-top:14px;padding:14px 22px;border-radius:14px;background:linear-gradient(135deg,#7c3cff,#14bff0);color:white;text-decoration:none;font-weight:900}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">✓</div>
+  <h1>Payment Successful</h1>
+  <p>Your Qevanta subscription is being activated. Please return to the Chrome extension and reopen it to enjoy your upgraded plan.</p>
+  <a href="index.html">Back to Website</a>
+</div>
+</body>
+</html>
