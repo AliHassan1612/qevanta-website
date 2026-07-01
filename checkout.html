@@ -148,6 +148,12 @@ async function startCheckout(){
 document.getElementById("applyCodeBtn").addEventListener("click", applyCode);
 document.getElementById("checkoutBtn").addEventListener("click", startCheckout);
 render();
+  const savedRefCode = localStorage.getItem("qevanta_ref_code");
+
+if(savedRefCode){
+  document.getElementById("promoCode").value = savedRefCode;
+  applyCode();
+}
 </script>
 </body>
 </html>
