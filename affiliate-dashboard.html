@@ -41,6 +41,16 @@ button{border:0;border-radius:14px;padding:14px 18px;font-weight:900;color:white
 @media(max-width:900px){.app{display:block}.sidebar{width:100%;border-right:0;border-bottom:1px solid var(--line)}.cards{grid-template-columns:1fr}.topbar{display:block}}
 </style>
 </head>
+  <script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get("ref");
+
+  if(ref){
+    localStorage.setItem("qevanta_ref_code", ref.trim().toUpperCase());
+  }
+})();
+</script>
 <body>
 
 <div class="app">
