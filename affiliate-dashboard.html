@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Affiliate Dashboard — Qevanta</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#030714;--panel:#0b1122;--text:#f8fbff;--muted:#a7b4c9;--line:rgba(255,255,255,.12);--purple:#7c3cff;--blue:#14bff0;--green:#65f0a4;--red:#ff8a8a}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#030714,#050b18);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+.app{display:flex;min-height:100vh}
+.sidebar{width:260px;padding:22px;border-right:1px solid var(--line);background:rgba(5,9,22,.92)}
+.logo{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-size:26px;font-weight:900}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.brand b{display:block;font-size:20px}
+.brand small{display:block;color:var(--muted)}
+.nav{width:100%;text-align:left;padding:13px 14px;border-radius:14px;border:1px solid transparent;background:transparent;color:var(--muted);font-weight:800;margin:5px 0;cursor:pointer}
+.nav.active,.nav:hover{color:white;background:rgba(255,255,255,.07);border-color:var(--line)}
+.logout{margin-top:22px;color:#fecaca;border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.12)}
+.main{flex:1;padding:28px;overflow:auto}
+.topbar{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:24px}
+.topbar h1{margin:0 0 6px;font-size:34px}
+.topbar p{margin:0;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.card,.panel{border:1px solid var(--line);border-radius:22px;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035))}
+.card span{display:block;color:var(--muted);font-size:13px;margin-bottom:10px}
+.card b{font-size:30px}
+.panel{margin-top:18px}
+.code-box{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px}
+input,select,textarea{width:100%;padding:14px;border-radius:14px;border:1px solid var(--line);background:#111827;color:white;outline:none}
+button{border:0;border-radius:14px;padding:14px 18px;font-weight:900;color:white;background:linear-gradient(135deg,var(--purple),var(--blue));cursor:pointer}
+.secondary{background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.list{display:grid;gap:12px;margin-top:16px}
+.item{border:1px solid var(--line);border-radius:16px;padding:16px;background:#111827}
+.item small{color:var(--muted)}
+.hidden{display:none!important}
+.msg{margin-top:12px;color:var(--muted)}
+.ok{color:var(--green)}
+.err{color:var(--red)}
+@media(max-width:900px){.app{display:block}.sidebar{width:100%;border-right:0;border-bottom:1px solid var(--line)}.cards{grid-template-columns:1fr}.topbar{display:block}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">Q</div>
+      <div><b>Qevanta</b><small>Affiliate Portal</small></div>
+    </div>
+
+    <button class="nav active" data-view="dashboard">Dashboard</button>
+    <button class="nav" data-view="referrals">Referrals</button>
+    <button class="nav" data-view="withdraw">Withdraw</button>
+    <button class="nav" data-view="settings">Settings</button>
+    <button id="logoutBtn" class="nav logout">Logout</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSub">Track your Qevanta referrals, commissions, and withdrawals.</p>
+      </div>
+      <button id="refreshBtn" class="secondary">Refresh</button>
+    </header>
+
+    <section id="dashboard" class="view">
+      <div class="panel">
+        <h2>Your Affiliate Code</h2>
+        <p style="color:#a7b4c9">Share this code with customers. They receive a discount and your commission is tracked after successful payment.</p>
+
+        <div class="code-box">
+          <input id="affiliateCode" readonly value="Loading...">
+          <button id="copyCodeBtn">Copy Code</button>
+        </div>
+
+        <div class="code-box">
+          <input id="affiliateLink" readonly value="Loading...">
+          <button id="copyLinkBtn">Copy Link</button>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card"><span>Pending Balance</span><b id="pendingBalance">$0.00</b></div>
+        <div class="card"><span>Available Balance</span><b id="availableBalance">$0.00</b></div>
+        <div class="card"><span>Lifetime Earnings</span><b id="lifetimeEarnings">$0.00</b></div>
+        <div class="card"><span>Total Referrals</span><b id="totalReferrals">0</b></div>
+        <div class="card"><span>Paid Referrals</span><b id="paidReferrals">0</b></div>
+        <div class="card"><span>Commission Rate</span><b id="commissionRate">15%</b></div>
+        <div class="card"><span>Customer Discount</span><b id="discountPercent">10%</b></div>
+        <div class="card"><span>Pending Withdrawals</span><b id="pendingWithdrawals">$0.00</b></div>
+      </div>
+    </section>
+
+    <section id="referrals" class="view hidden">
+      <div class="panel">
+        <h2>Referral Activity</h2>
+        <p style="color:#a7b4c9">Your referral and commission history will appear here.</p>
+        <div id="activityList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="withdraw" class="view hidden">
+      <div class="panel">
+        <h2>Request Withdrawal</h2>
+        <p style="color:#a7b4c9">Withdrawals are reviewed manually by Qevanta admin.</p>
+
+        <label>Amount</label>
+        <input id="withdrawAmount" type="number" min="1" step="0.01" placeholder="Example: 50">
+
+        <label>Payout Method</label>
+        <select id="payoutMethod">
+          <option value="PayPal">PayPal</option>
+          <option value="Bank Transfer">Bank Transfer</option>
+          <option value="Wise">Wise</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label>Payout Details</label>
+        <textarea id="payoutDetails" rows="5" placeholder="Enter PayPal email, bank details, Wise email, or payout instructions"></textarea>
+
+        <button id="withdrawBtn">Submit Withdrawal Request</button>
+        <div id="withdrawMsg" class="msg"></div>
+      </div>
+    </section>
+
+    <section id="settings" class="view hidden">
+      <div class="panel">
+        <h2>Settings</h2>
+        <p style="color:#a7b4c9">Affiliate settings and payout preferences will be expanded after Stripe launch.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+const SUPABASE_URL = "https://mfgmkvmawhfdsigawrpn.supabase.co";
+const SUPABASE_ANON_KEY = "PASTE_YOUR_ANON_KEY_HERE";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function $(id){return document.getElementById(id);}
+function money(n){return "$" + Number(n || 0).toFixed(2);}
+function safe(v){return String(v ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");}
+
+function showView(name){
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("hidden", v.id !== name));
+  document.querySelectorAll(".nav").forEach(b=>b.classList.toggle("active", b.dataset.view === name));
+  $("pageTitle").textContent = name === "dashboard" ? "Dashboard" : name === "referrals" ? "Referrals" : name === "withdraw" ? "Withdraw" : "Settings";
+}
+
+async function requireSession(){
+  const { data:{ session } } = await db.auth.getSession();
+  if(!session){
+    location.href = "affiliate-login.html";
+    return null;
+  }
+  return session;
+}
+
+async function loadDashboard(){
+  const session = await requireSession();
+  if(!session) return;
+
+  const { data, error } = await db.rpc("qevanta_affiliate_dashboard_summary");
+
+  if(error){
+    alert(error.message || "Could not load affiliate dashboard.");
+    return;
+  }
+
+  const d = data || {};
+  const code = d.affiliate_code || "-";
+  const link = code && code !== "-" ? `https://qevanta.site/?ref=${encodeURIComponent(code)}` : "-";
+
+  $("affiliateCode").value = code;
+  $("affiliateLink").value = link;
+  $("pendingBalance").textContent = money(d.pending_balance);
+  $("availableBalance").textContent = money(d.available_balance);
+  $("lifetimeEarnings").textContent = money(d.lifetime_earnings);
+  $("totalReferrals").textContent = Number(d.total_referrals || 0);
+  $("paidReferrals").textContent = Number(d.paid_referrals || 0);
+  $("commissionRate").textContent = Number(d.commission_rate || 15) + "%";
+  $("discountPercent").textContent = Number(d.discount_percent || 10) + "%";
+  $("pendingWithdrawals").textContent = money(d.pending_withdrawals);
+}
+
+async function loadActivity(){
+  const session = await requireSession();
+  if(!session) return;
+
+  const { data, error } = await db.rpc("qevanta_affiliate_activity");
+
+  if(error){
+    $("activityList").innerHTML = `<div class="item">Could not load activity.</div>`;
+    return;
+  }
+
+  const rows = data || [];
+
+  $("activityList").innerHTML = rows.length ? rows.map(r=>`
+    <div class="item">
+      <b>${safe(r.customer_email || "-")}</b>
+      <p>Plan: ${safe(r.plan || "-")} · Billing: ${safe(r.billing_interval || "-")}</p>
+      <p>Payment: ${safe(r.payment_status || "-")} · Commission: ${money(r.commission_amount)}</p>
+      <small>Status: ${safe(r.commission_status || "-")}</small>
+    </div>
+  `).join("") : `<div class="item">No referral activity yet.</div>`;
+}
+
+async function requestWithdrawal(){
+  const msg = $("withdrawMsg");
+  msg.className = "msg";
+  msg.textContent = "Submitting request...";
+
+  const amount = Number($("withdrawAmount").value || 0);
+  const payoutMethod = $("payoutMethod").value;
+  const payoutDetails = $("payoutDetails").value.trim();
+
+  const { error } = await db.rpc("qevanta_request_withdrawal", {
+    p_amount: amount,
+    p_payout_method: payoutMethod,
+    p_payout_details: payoutDetails
+  });
+
+  if(error){
+    msg.className = "msg err";
+    msg.textContent = error.message || "Withdrawal request failed.";
+    return;
+  }
+
+  $("withdrawAmount").value = "";
+  $("payoutDetails").value = "";
+  msg.className = "msg ok";
+  msg.textContent = "Withdrawal request submitted successfully.";
+  await loadDashboard();
+}
+
+$("copyCodeBtn").addEventListener("click", async()=>{await navigator.clipboard.writeText($("affiliateCode").value);});
+$("copyLinkBtn").addEventListener("click", async()=>{await navigator.clipboard.writeText($("affiliateLink").value);});
+$("withdrawBtn").addEventListener("click", requestWithdrawal);
+$("refreshBtn").addEventListener("click", async()=>{await loadDashboard(); await loadActivity();});
+$("logoutBtn").addEventListener("click", async()=>{await db.auth.signOut(); location.href="affiliate-login.html";});
+
+document.querySelectorAll(".nav[data-view]").forEach(btn=>{
+  btn.addEventListener("click", async()=>{
+    showView(btn.dataset.view);
+    if(btn.dataset.view === "referrals") await loadActivity();
+  });
+});
+
+loadDashboard();
+</script>
+</body>
+</html>
