@@ -148,10 +148,13 @@ async function startCheckout(){
 document.getElementById("applyCodeBtn").addEventListener("click", applyCode);
 document.getElementById("checkoutBtn").addEventListener("click", startCheckout);
 render();
-  const savedRefCode = localStorage.getItem("qevanta_ref_code");
+ const urlRefCode = new URLSearchParams(window.location.search).get("ref");
+const savedRefCode = urlRefCode || localStorage.getItem("qevanta_ref_code");
 
 if(savedRefCode){
-  document.getElementById("promoCode").value = savedRefCode;
+  const cleanRefCode = savedRefCode.trim().toUpperCase();
+  localStorage.setItem("qevanta_ref_code", cleanRefCode);
+  document.getElementById("promoCode").value = cleanRefCode;
   applyCode();
 }
 </script>
