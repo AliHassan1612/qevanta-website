@@ -67,33 +67,116 @@ button{border:0;border-radius:14px;padding:14px 18px;font-weight:900;color:white
     </header>
 
     <section id="dashboard" class="view">
-      <div class="panel">
-        <h2>Your Affiliate Code</h2>
-        <p style="color:#a7b4c9">Share this code with customers. They receive a discount and your commission is tracked after successful payment.</p>
+    <div class="panel">
 
-        <div class="code-box">
-          <input id="affiliateCode" readonly value="Loading...">
-          <button id="copyCodeBtn">Copy Code</button>
-        </div>
+  <h2>Affiliate Dashboard</h2>
 
-        <div class="code-box">
-          <input id="affiliateLink" readonly value="Loading...">
-          <button id="copyLinkBtn">Copy Link</button>
-        </div>
-      </div>
+  <p style="color:#a7b4c9">
+    Share your referral code and earn commission from paid Qevanta customers.
+  </p>
 
-      <div class="cards">
-        <div class="card"><span>Pending Balance</span><b id="pendingBalance">$0.00</b></div>
-        <div class="card"><span>Available Balance</span><b id="availableBalance">$0.00</b></div>
-        <div class="card"><span>Lifetime Earnings</span><b id="lifetimeEarnings">$0.00</b></div>
-        <div class="card"><span>Total Referrals</span><b id="totalReferrals">0</b></div>
-        <div class="card"><span>Paid Referrals</span><b id="paidReferrals">0</b></div>
-        <div class="card"><span>Commission Rate</span><b id="commissionRate">15%</b></div>
-        <div class="card"><span>Customer Discount</span><b id="discountPercent">10%</b></div>
-        <div class="card"><span>Pending Withdrawals</span><b id="pendingWithdrawals">$0.00</b></div>
-      </div>
-    </section>
+  <div class="cards">
 
+    <div class="card">
+      <span>Your Referral Code</span>
+      <b id="affiliateCodeText">-</b>
+    </div>
+
+    <div class="card">
+      <span>Discount For Customer</span>
+      <b id="discountPercent">10%</b>
+    </div>
+
+    <div class="card">
+      <span>Your Commission</span>
+      <b id="commissionRate">15%</b>
+    </div>
+
+    <div class="card">
+      <span>Total Earnings</span>
+      <b id="lifetimeEarnings">$0.00</b>
+    </div>
+
+    <div class="card">
+      <span>Total Referrals</span>
+      <b id="totalReferrals">0</b>
+    </div>
+
+    <div class="card">
+      <span>Status</span>
+      <b id="affiliateStatus">ACTIVE</b>
+    </div>
+
+  </div>
+
+  <div class="code-box" style="margin-top:22px">
+
+    <input
+      id="customAffiliateCode"
+      placeholder="Create custom code e.g. QEVANTA20">
+
+    <button id="createAffiliateCodeBtn">
+      Create Code
+    </button>
+
+    <button
+      class="secondary"
+      id="copyCodeBtn">
+      Copy Code
+    </button>
+
+  </div>
+
+  <div class="code-box">
+
+    <input
+      id="affiliateLink"
+      readonly
+      value="Loading...">
+
+    <button
+      class="secondary"
+      id="copyLinkBtn">
+      Copy Link
+    </button>
+
+  </div>
+
+  <p style="margin-top:20px;color:#a7b4c9;line-height:1.6">
+
+    Customers receive
+    <b>10% off</b>
+    when they use your code.
+
+    Commission is tracked automatically after successful payment.
+
+  </p>
+
+</div>
+
+<div class="cards">
+
+  <div class="card">
+    <span>Pending Balance</span>
+    <b id="pendingBalance">$0.00</b>
+  </div>
+
+  <div class="card">
+    <span>Available Balance</span>
+    <b id="availableBalance">$0.00</b>
+  </div>
+
+  <div class="card">
+    <span>Paid Referrals</span>
+    <b id="paidReferrals">0</b>
+  </div>
+
+  <div class="card">
+    <span>Pending Withdrawals</span>
+    <b id="pendingWithdrawals">$0.00</b>
+  </div>
+
+</div>
     <section id="referrals" class="view hidden">
       <div class="panel">
         <h2>Referral Activity</h2>
@@ -174,8 +257,7 @@ async function loadDashboard(){
   const code = d.affiliate_code || "-";
   const link = code && code !== "-" ? `https://qevanta.site/?ref=${encodeURIComponent(code)}` : "-";
 
-  $("affiliateCode").value = code;
-  $("affiliateLink").value = link;
+$("affiliateCodeText").textContent = code;  $("affiliateLink").value = link;
   $("pendingBalance").textContent = money(d.pending_balance);
   $("availableBalance").textContent = money(d.available_balance);
   $("lifetimeEarnings").textContent = money(d.lifetime_earnings);
