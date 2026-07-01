@@ -505,5 +505,15 @@ function startPlan(plan){
   window.location.href = "checkout.html?plan=" + encodeURIComponent(plan);
 }
 </script>
+  <script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get("ref");
+
+  if(ref){
+    localStorage.setItem("qevanta_ref_code", ref.trim().toUpperCase());
+  }
+})();
+</script>
 </body>
 </html>
