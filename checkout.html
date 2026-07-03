@@ -151,8 +151,7 @@ async function startCheckout(){
       },
       body: JSON.stringify({
         plan: selectedPlan,
-        affiliate_code: appliedCode || ""
-      })
+affiliate_code: appliedCode || document.getElementById("promoCode").value.trim() || ""      })
     });
 
     const data = await res.json();
