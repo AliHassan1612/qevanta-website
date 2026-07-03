@@ -417,3 +417,38 @@ document.querySelectorAll(".nav").forEach(btn=>{
 
 $("refreshBtn")?.addEventListener("click", loadAdminData);
 $("userSearch")?.addEventListener("input", renderUsers);
+function renderFeedback(){
+  if(!$("feedbackTable")) return;
+
+  if(!ADMIN_FEEDBACK.length){
+    $("feedbackTable").innerHTML = `<div class="list-item">No feedback submitted yet.</div>`;
+    return;
+  }
+
+  $("feedbackTable").innerHTML = ADMIN_FEEDBACK.map(f=>`
+    <div class="list-item" style="display:block">
+      <b>${esc(f.name || "-")}</b> · ${esc(f.email || "-")}
+      <p><b>Type:</b> ${esc(f.type || "-")}</p>
+      <p>${esc(f.message || "-")}</p>
+      <small>${esc(formatDate(f.created_at))}</small>
+    </div>
+  `).join("");
+}
+
+async function loadFeedback(){
+  const { data, error } = await qevantaDb
+    .from("qevanta_feedback")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    console.error(error);
+    if($("feedbackTable")){
+      $("feedbackTable").innerHTML = `<div class="list-item">Could not load feedback.</div>`;
+    }
+    return;
+  }
+
+  ADMIN_FEEDBACK = data || [];
+  renderFeedback();
+}
