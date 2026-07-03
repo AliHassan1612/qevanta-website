@@ -515,5 +515,24 @@ function startPlan(plan){
   }
 })();
 </script>
+  <script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get("ref");
+
+  if(ref){
+    localStorage.setItem("qevanta_ref_code", ref.trim().toUpperCase());
+  }
+
+  document.querySelectorAll('a[href*="checkout.html"]').forEach(link=>{
+    const savedRef = localStorage.getItem("qevanta_ref_code");
+    if(!savedRef) return;
+
+    const url = new URL(link.href);
+    url.searchParams.set("ref", savedRef);
+    link.href = url.toString();
+  });
+})();
+</script>
 </body>
 </html>
