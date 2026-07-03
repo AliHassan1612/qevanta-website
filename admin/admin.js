@@ -113,52 +113,6 @@ async function loadMessages(){
   renderContactMessages();
   renderAffiliateMessages();
 }
-async function loadFeedback(){
-
-  const { data, error } = await qevantaDb
-    .from("qevanta_feedback")
-    .select("*")
-    .order("created_at",{ascending:false});
-
-  if(error){
-    console.error(error);
-    $("feedbackTable").innerHTML =
-      "<div class='empty'>Could not load feedback.</div>";
-    return;
-  }
-
-  ADMIN_FEEDBACK = data || [];
-
-  if(!ADMIN_FEEDBACK.length){
-    $("feedbackTable").innerHTML =
-      "<div class='empty'>No feedback submitted yet.</div>";
-    return;
-  }
-
-  $("feedbackTable").innerHTML = `
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Type</th>
-        <th>Message</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${ADMIN_FEEDBACK.map(f=>`
-      <tr>
-        <td>${formatDate(f.created_at)}</td>
-        <td>${esc(f.name)}</td>
-        <td>${esc(f.email)}</td>
-        <td>${esc(f.type)}</td>
-        <td>${esc(f.message)}</td>
-      </tr>
-      `).join("")}
-    </tbody>
-  </table>`;
-}
 async function loadAnalytics(){
   const { data, error } = await qevantaDb.rpc("qevanta_admin_analytics");
   if(error){console.error(error);return;}
