@@ -138,18 +138,41 @@ async function applyCode(){
 }
 
 async function startCheckout(){
-  alert(
-    "Next step: Stripe checkout function connect hogi.\\n\\n" +
-    "Plan: " + selectedPlan + "\\n" +
-    "Code: " + (appliedCode || "-")
-  );
+  const btn = document.getElementById("checkoutBtn");
+
+  btn.disabled = true;
+  btn.textContent = "Opening secure checkout...";
+
+  try{
+    const res = await fetch("https://mfgmkvmawhfdsigawrpn.supabase.co/functions/v1/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        plan: selectedPlan,
+        affiliate_code: appliedCode || ""
+      })
+    });
+
+    const data = await res.json();
+
+    if(!res.ok || !data.url){
+      throw new Error(data.error || "Could not start checkout.");
+    }
+
+    window.location.href = data.url;
+
+  }catch(err){
+    alert(err.message || "Checkout failed.");
+    btn.disabled = false;
+    btn.textContent = "Continue to Secure Checkout";
+  }
 }
 
 document.getElementById("applyCodeBtn").addEventListener("click", applyCode);
 document.getElementById("checkoutBtn").addEventListener("click", startCheckout);
 render();
-render();
-
 setTimeout(() => {
   const urlRefCode = new URLSearchParams(window.location.search).get("ref");
   const savedRefCode = urlRefCode || localStorage.getItem("qevanta_ref_code");
