@@ -362,7 +362,30 @@ async function updateMessageStatus(id, status){
     return;
   }
 
-  await loadMessages();
+  if(status === "approved"){
+  const msg = ADMIN_MESSAGES.find(m => m.id === id);
+
+  if(msg?.email){
+    fetch(`${SUPABASE_URL}/functions/v1/send-email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+      },
+      body: JSON.stringify({
+        to: msg.email,
+        type: "affiliate_approved",
+        data: {
+          name: msg.name || "there",
+          url: "https://qevanta.site/affiliate-login.html"
+        }
+      })
+    }).catch(()=>{});
+  }
+}
+
+await loadMessages();
 }
 
 document.querySelectorAll(".nav").forEach(btn=>{
